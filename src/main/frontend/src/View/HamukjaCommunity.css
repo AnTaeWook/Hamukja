@@ -1,0 +1,65 @@
+.HamukjaCommunity {
+    margin-top: 6%;
+}
+
+.HamukjaCommunity .page-header {
+    margin-top: 6%;
+    margin-bottom: 2%;
+}
+
+.HamukjaCommunity .posts-sort {
+    padding: 1%;
+    margin-right: 5%;
+}
+
+.HamukjaCommunity .post-creation-btn {
+    padding: 1%;
+    width: 12%;
+}
+
+.HamukjaCommunity .search-area-col {
+    margin-top: 5%;
+    margin-left: 2%;
+}
+
+.HamukjaCommunity .search-area {
+    width: 60%;
+    margin-left: 2%;
+}
+
+.HamukjaCommunity .search-area:focus::placeholder{
+    color: transparent;
+}
+
+.HamukjaCommunity .post-contents-header{
+    margin-top: 2%;
+    border: 1px solid black;
+    font-weight: bold;
+    background-color: papayawhip;
+    border-radius: 5px 5px 0px 0px;
+}
+
+.HamukjaCommunity .post-contents{
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
+    background-color: lightyellow;
+}
+
+.HamukjaCommunity .post-area{
+    margin-left: 1%;
+    border-left: 1px solid black;
+}
+
+.HamukjaCommunity .post-title{
+    margin-left: 1%;
+}
+
+.HamukjaCommunity .post-thema{
+    border-right: 1px solid black;
+    font-weight: bold;
+}
+
+.HamukjaCommunity .post-thema, .HamukjaCommunity .post-title, .HamukjaCommunity .post-area {
+    padding: 1%;
+}

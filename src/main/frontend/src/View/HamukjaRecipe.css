@@ -1,0 +1,71 @@
+.HamukjaRecipe {
+    margin-bottom: 0;
+}
+
+.HamukjaRecipe .page-header {
+    margin-top: 6%;
+    margin-bottom: 2%;
+}
+
+.HamukjaRecipe .page-contents {
+    margin-top: 3%;
+    border: 1px solid black;
+    border-radius: 10px;
+    background-color: ivory;
+}
+
+.HamukjaRecipe .recipe-image-col {
+    padding: 0;
+}
+
+.HamukjaRecipe .recipe-image {
+    border-radius: 10px 0px 0px 10px;
+}
+
+.HamukjaRecipe .recipe-description {
+    margin-top: 2%;
+    padding-left: 0;
+}
+
+.HamukjaRecipe .recipe-creation-btn-area {
+    padding-left: 63%;
+}
+
+.HamukjaRecipe .recipe-creation-btn {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 15px 38px;
+    border-radius: 16px;
+    border: 1px solid transparent;
+    color: #FFFFFF;
+    background-color: #1DC9A0;
+    font-size: 16px;
+    letter-spacing: 1px;
+    transition: all 0.15s linear;
+}
+
+.HamukjaRecipe .recipe-creation-btn:hover {
+    background-color: rgba(29, 201, 160, 0.08);
+    border-color: #1DC9A0;
+    color: #1DC9A0;
+    transform: translateY(-5px) scale(1.05);
+}
+
+.HamukjaRecipe .recipe-creation-btn:active {
+    background-color: transparent;
+    border-color: #1DC9A0;
+    color: #1DC9A0;
+    transform: translateY(5px) scale(0.95);
+}
+
+.HamukjaRecipe .recipe-creation-btn:disabled {
+    background-color: rgba(255, 255, 255, 0.16);
+    color: #8E8E93;
+    border-color: #8E8E93;
+}
+
+.HamukjaRecipe .recipes-sort {
+    padding: 7%;
+}

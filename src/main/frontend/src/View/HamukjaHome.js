@@ -1,5 +1,7 @@
 import "./HamukjaHome.css";
 import {Container, Row} from "react-bootstrap";
+import {useNavigate} from 'react-router-dom';
+import React, { useCallback } from 'react';
 
 /**
  * HamukjaHome
@@ -9,6 +11,11 @@ import {Container, Row} from "react-bootstrap";
  * @version 1.0
  */
 function HamukjaHome(){
+
+    const navigate = useNavigate();
+    const gotoRecipes = useCallback(() => navigate('/recipes', {replace: true}), [navigate]);
+    const gotoCommunity = useCallback(() => navigate('/community', {replace: true}), [navigate]);
+
     return(
         <div className="HamukjaHome">
             <Container>
@@ -25,10 +32,9 @@ function HamukjaHome(){
                                     </p>
                                 </div>
                                 <div className="col">
-                                <button className="w-btn w-btn-indigo" type="button">
+                                <button className="w-btn w-btn-indigo go-cooking-btn" type="button" onClick={gotoRecipes}>
                                     요리하러가기 ▶
                                 </button>
-                                
                                 </div>
                             </div>
                         </div>
@@ -39,7 +45,7 @@ function HamukjaHome(){
                         <div className="container">
                             <div className="row">
                                 <div className="col">
-                                <button className="w-btn w-btn-indigo" type="button">
+                                <button className="w-btn w-btn-indigo go-debating-btn" type="button" onClick={gotoCommunity}>
                                     ◀ 토론하러가기
                                 </button>
                                 </div>

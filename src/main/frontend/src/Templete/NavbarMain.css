@@ -2,3 +2,7 @@
     border: none;
     background-color: #F8F9FA;
 }
+
+.navbar-logo:hover {
+    cursor: pointer;
+}
