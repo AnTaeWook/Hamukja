@@ -1,0 +1,66 @@
+.HamukjaHome {
+    text-align: center;
+}
+
+.intro-recipe, .intro-community {
+    padding: 8.15%;
+}
+
+.intro-recipe {
+    background-color: lemonchiffon;  
+    background-image: url('../cooking.png');
+    background-size: 20% 50%;
+    background-repeat: no-repeat;
+    background-position: 98% 50%;
+}
+
+.intro-community {
+    background-color: blanchedalmond;
+    background-image: url('../community.png');
+    background-size: 20% 50%;
+    background-repeat: no-repeat;
+    background-position: 2% 50%;
+}
+
+.w-btn {
+    margin: 20px;
+}
+
+.w-btn {
+    margin-top: 10%;
+    position: relative;
+    border: none;
+    display: inline-block;
+    padding: 15px 30px;
+    border-radius: 15px;
+    font-family: 'GangwonEdu_OTFBoldA', sans-serif;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.25s;
+}
+
+.w-btn-outline {
+    position: relative;
+    padding: 15px 30px;
+    border-radius: 15px;
+    font-family: 'GangwonEdu_OTFBoldA', sans-serif;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.25s;
+}
+
+.w-btn:hover {
+    letter-spacing: 2px;
+    transform: scale(1.2);
+    cursor: pointer;
+}
+
+.go-cooking-btn {
+    margin-right: 20%;
+}
+
+.go-debating-btn {
+    margin-left: 20%;
+}

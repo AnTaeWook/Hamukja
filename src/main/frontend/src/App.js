@@ -1,23 +1,23 @@
-import logo from './logo.svg';
 import './App.css';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import NavbarMain from './Templete/NavbarMain';
+import HamukjaHome from './View/HamukjaHome';
+import Footer from './Templete/Footer';
+import HamukjaRecipe from './View/HamukjaRecipe';
+import HamukjaCommunity from './View/HamukjaCommunity';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <BrowserRouter>
+      <NavbarMain />
+        <Routes>
+          <Route path='*' element={<HamukjaHome/>}></Route>
+          <Route path='/recipes' element={<HamukjaRecipe/>}></Route>
+          <Route path='/community' element={<HamukjaCommunity/>}></Route>
+        </Routes>
+      <Footer />
+      </BrowserRouter>
     </div>
   );
 }

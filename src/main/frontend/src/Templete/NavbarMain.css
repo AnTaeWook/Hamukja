@@ -1,0 +1,8 @@
+.sign-up-btn, .sign-in-btn {
+    border: none;
+    background-color: #F8F9FA;
+}
+
+.navbar-logo:hover {
+    cursor: pointer;
+}
