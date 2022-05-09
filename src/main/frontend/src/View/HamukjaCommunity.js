@@ -1,14 +1,27 @@
 import './HamukjaCommunity.css';
 import {Container, Row, Col, Button} from "react-bootstrap";
+import Community from '../component/Community';
+import { useState } from 'react';
 
 /**
  * HamukjaCommunity
  * 식재료 커뮤니티 페이지
+ * 커뮤니티 컴포넌트 별 매핑 적용(2.0)
+ * 
+ * -state-
+ * communityItems : 커뮤니티 게시글의 분류와 제목, 지역 등의 정보
  * 
  * @author 태욱
  * @version 1.0
  */
 function HamukjaCommunity() {
+
+    let [communityItems, setCommunityItems] = useState([
+        {"class" : "교환", "title" : "분당 고구마(5개)랑 교환 하실분 &lt;사진있음&gt;", "region" : "성남시 분당구"},
+        {"class" : "나눔", "title" : "방울 토마토랑 귤 가져가실분 (귤 많아요)", "region" : "서울시 구로구"},
+        {"class" : "공동구매", "title" : "샤인 머스켓 나눠 사실분 계신가요", "region" : "서울시 영등포구"}
+    ])
+
     return (
         <Container className='HamukjaCommunity'>
             <h1 className='page-header'>
@@ -46,47 +59,11 @@ function HamukjaCommunity() {
                 </Row>
             </Row>
 
-            <Row className='post-contents'>
-                <Row>
-                    <Col xs='1' className='post-thema'>
-                        교환
-                    </Col>
-                    <Col xs='9' className='post-title'>
-                        분당 고구마(5개)랑 교환 하실분 &lt;사진있음&gt;
-                    </Col>
-                    <Col className='post-area'>
-                        성남시 분당구
-                    </Col>
-                </Row>
-            </Row>
-
-            <Row className='post-contents'>
-                <Row>
-                    <Col xs='1' className='post-thema'>
-                        나눔
-                    </Col>
-                    <Col xs='9' className='post-title'>
-                        방울 토마토랑 귤 가져가실분 (귤 많아요)
-                    </Col>
-                    <Col className='post-area'>
-                        서울시 구로구
-                    </Col>
-                </Row>
-            </Row>
-
-            <Row className='post-contents'>
-                <Row>
-                    <Col xs='1' className='post-thema'>
-                        공동구매
-                    </Col>
-                    <Col xs='9' className='post-title'>
-                        샤인 머스켓 나눠 사실분 계신가요
-                    </Col>
-                    <Col className='post-area'>
-                        서울시 영등포구
-                    </Col>
-                </Row>
-            </Row>
+            {
+                communityItems.map((item, index) => {
+                    return <Community item={item}/>
+                })
+            }
 
         </Container>
     )
