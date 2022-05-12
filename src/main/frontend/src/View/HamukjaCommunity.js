@@ -2,6 +2,8 @@ import './HamukjaCommunity.css';
 import {Container, Row, Col, Button} from "react-bootstrap";
 import Community from '../Component/Community';
 import { useState } from 'react';
+import {useNavigate} from 'react-router-dom';
+import React, { useCallback } from 'react';
 
 /**
  * HamukjaCommunity
@@ -22,6 +24,9 @@ function HamukjaCommunity() {
         {"class" : "공동구매", "title" : "샤인 머스켓 나눠 사실분 계신가요", "region" : "서울시 영등포구"}
     ])
 
+    const navigate = useNavigate();
+    const gotoNewPost = useCallback(() => navigate('/newpost', {replace: true}), [navigate]);
+
     return (
         <Container className='HamukjaCommunity'>
             <h1 className='page-header'>
@@ -35,7 +40,7 @@ function HamukjaCommunity() {
                         <option value="3">나눔</option>
                         <option value="4">공동구매</option>
                     </select>
-                    <Button variant="success" className='post-creation-btn'>글 쓰기</Button>
+                    <Button variant="success" className='post-creation-btn' onClick={gotoNewPost}>글 쓰기</Button>
                 </Col>
                 <Col>
                     <div className='search-area-col'>

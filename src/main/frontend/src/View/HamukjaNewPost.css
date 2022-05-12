@@ -1,0 +1,63 @@
+.HamukjaNewPost {
+    margin-bottom: 5%;
+}
+
+.HamukjaNewPost .page-header {
+    margin-top: 6%;
+    margin-bottom: 2%;
+}
+
+.HamukjaNewPost .title-input {
+    padding-top: 3%;
+}
+
+.HamukjaNewPost .title-input-head {
+    font-size: 150%;
+}
+
+.HamukjaNewPost .title-input-text {
+    margin-top: 1%;
+    padding: 1%;
+    font-size: 130%;
+}
+
+.HamukjaNewPost .area-input {
+    padding-top: 3%;
+}
+
+.HamukjaNewPost .area-input-head {
+    font-size: 150%;
+}
+
+.HamukjaNewPost .area-input-text {
+    margin-top: 1%;
+    padding: 1%;
+    font-size: 130%;
+}
+
+.HamukjaNewPost .class-input {
+    padding-top: 3%;
+}
+
+.HamukjaNewPost .class-input-head {
+    font-size: 150%;
+}
+
+.HamukjaNewPost .class-input-select {
+    padding: 2%;
+    font-size: larger;
+}
+
+.HamukjaNewPost .post-input-head {
+    font-size: 150%;
+    margin-top: 3%;
+}
+
+.HamukjaNewPost .post-input-text {
+    resize: none;
+}
+
+.HamukjaNewPost .submit-btn {
+    text-align: right;
+    margin-right: 21%;
+}

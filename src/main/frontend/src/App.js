@@ -6,6 +6,7 @@ import Footer from './Templete/Footer';
 import HamukjaRecipe from './View/HamukjaRecipe';
 import HamukjaCommunity from './View/HamukjaCommunity';
 import HamukjaNewRecipe from './View/HamukjaNewRecipe';
+import HamukjaNewPost from './View/HamukjaNewPost';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path='/recipes' element={<HamukjaRecipe/>}></Route>
           <Route path='/newrecipe' element={<HamukjaNewRecipe/>}></Route>
           <Route path='/community' element={<HamukjaCommunity/>}></Route>
+          <Route path='/newpost' element={<HamukjaNewPost/>}></Route>
         </Routes>
       <Footer />
       </BrowserRouter>
