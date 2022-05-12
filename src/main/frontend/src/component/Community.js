@@ -1,8 +1,8 @@
 import { Row, Col } from "react-bootstrap";
 
 /**
- * Recipe
- * 레시피 컴포넌트
+ * Community
+ * 게시글 컴포넌트
  * 
  * @author 태욱
  * @version 1.0

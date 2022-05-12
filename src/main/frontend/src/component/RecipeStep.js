@@ -1,6 +1,13 @@
 import {Row, Col, Button} from "react-bootstrap";
 import imageIcon from '../imageIcon.PNG';
 
+/**
+ * RecipeStep
+ * 레시피 작성 시 단계 컴포넌트
+ * 
+ * @author 태욱
+ * @version 1.0
+ */
 function RecipeStep(props) {
 
     function deleteStep(){
