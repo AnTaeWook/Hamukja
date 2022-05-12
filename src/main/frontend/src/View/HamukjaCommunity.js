@@ -17,7 +17,7 @@ import { useState } from 'react';
 function HamukjaCommunity() {
 
     let [communityItems, setCommunityItems] = useState([
-        {"class" : "교환", "title" : "분당 고구마(5개)랑 교환 하실분 &lt;사진있음&gt;", "region" : "성남시 분당구"},
+        {"class" : "교환", "title" : "분당 고구마(5개)랑 교환 하실분 [사진있음]", "region" : "성남시 분당구"},
         {"class" : "나눔", "title" : "방울 토마토랑 귤 가져가실분 (귤 많아요)", "region" : "서울시 구로구"},
         {"class" : "공동구매", "title" : "샤인 머스켓 나눠 사실분 계신가요", "region" : "서울시 영등포구"}
     ])

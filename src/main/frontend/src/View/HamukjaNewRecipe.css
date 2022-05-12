@@ -1,0 +1,33 @@
+.HamukjaNewRecipe {
+    margin-bottom: 5%;
+    padding-left: 5%;
+}
+
+.HamukjaNewRecipe .title-input {
+    padding-top: 3%;
+}
+
+.HamukjaNewRecipe .title-input-head {
+    font-size: 150%;
+}
+
+.HamukjaNewRecipe .title-input-text {
+    margin-top: 1%;
+    padding: 1%;
+    font-size: 130%;
+}
+
+.HamukjaNewRecipe .email-input {
+    padding-top: 3%;
+}
+
+.HamukjaNewRecipe .email-input-head {
+    font-size: 150%;
+}
+
+.HamukjaNewRecipe .email-input-text {
+    margin-top: 1%;
+    padding: 1%;
+    font-size: 130%;
+}
+
