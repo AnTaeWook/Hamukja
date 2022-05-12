@@ -5,6 +5,8 @@ import { useState } from 'react';
 import foodExample from '../foodExample.jpg';
 import foodExample2 from '../foodExample2.jpg';
 import foodExample3 from '../foodExample3.jpg';
+import {useNavigate} from 'react-router-dom';
+import React, { useCallback } from 'react';
 
 /**
  * HamukjaRecipe
@@ -15,7 +17,7 @@ import foodExample3 from '../foodExample3.jpg';
  * recipeItems : 레시피의 썸네일과 제목, 간략한 설명 등의 정보
  * 
  * @author 태욱
- * @version 2.0
+ * @version 3.0
  */
 function HamukjaRecipe() {
 
@@ -24,6 +26,9 @@ function HamukjaRecipe() {
         {"id" : 2, "thumbnail" : foodExample2, "title" : "파 계란 볶음밥", "desc" : "파와 계란을 살짝 볶아서 만드는 볶음밥"},
         {"id" : 3, "thumbnail" : foodExample3, "title" : "계란 비빔면", "desc" : "삶은 계란과 남는 야채들을 넣어서 비비면 끝"}
     ]);
+
+    const navigate = useNavigate();
+    const gotoNewRecipe = useCallback(() => navigate('/newrecipe', {replace: true}), [navigate]);
 
     return (
         <Container className='HamukjaRecipe'>
@@ -38,7 +43,7 @@ function HamukjaRecipe() {
                 </select>
                 </Col>
                 <Col className='recipe-creation-btn-area'>
-                    <button className='recipe-creation-btn'>새 레시피 작성</button>
+                    <button className='recipe-creation-btn' onClick={gotoNewRecipe}>새 레시피 작성</button>
                 </Col> 
             </Row>
             
