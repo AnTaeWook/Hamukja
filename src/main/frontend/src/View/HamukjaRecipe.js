@@ -1,6 +1,6 @@
 import './HamukjaRecipe.css';
 import {Container, Row, Col} from "react-bootstrap";
-import Recipe from '../component/Recipe';
+import Recipe from '../Component/Recipe';
 import { useState } from 'react';
 import foodExample from '../foodExample.jpg';
 import foodExample2 from '../foodExample2.jpg';
@@ -20,9 +20,9 @@ import foodExample3 from '../foodExample3.jpg';
 function HamukjaRecipe() {
 
     let [recipeItems, setRecipeItems] = useState([
-        {"thumbnail" : foodExample, "title" : "초간단 샐러드", "desc" : "상추와 당근, 토마토만 있다면 누구나 만들 수 있는 샐러드"},
-        {"thumbnail" : foodExample2, "title" : "파 계란 볶음밥", "desc" : "파와 계란을 살짝 볶아서 만드는 볶음밥"},
-        {"thumbnail" : foodExample3, "title" : "계란 비빔면", "desc" : "삶은 계란과 남는 야채들을 넣어서 비비면 끝"}
+        {"id" : 1, "thumbnail" : foodExample, "title" : "초간단 샐러드", "desc" : "상추와 당근, 토마토만 있다면 누구나 만들 수 있는 샐러드"},
+        {"id" : 2, "thumbnail" : foodExample2, "title" : "파 계란 볶음밥", "desc" : "파와 계란을 살짝 볶아서 만드는 볶음밥"},
+        {"id" : 3, "thumbnail" : foodExample3, "title" : "계란 비빔면", "desc" : "삶은 계란과 남는 야채들을 넣어서 비비면 끝"}
     ]);
 
     return (
@@ -44,7 +44,7 @@ function HamukjaRecipe() {
             
             {
                 recipeItems.map((item, index) => {
-                    return <Recipe item={item}/>
+                    return <Recipe key={index} item={item}/>
                 })
             }
 
