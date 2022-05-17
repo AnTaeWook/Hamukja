@@ -5,6 +5,7 @@ import RecipeStep from '../Component/RecipeStep';
 import addIcon from '../addIcon.PNG';
 import minusIcon from '../minusIcon.png';
 import { useEffect } from 'react';
+import imageIcon from '../imageIcon.PNG';
 
 /**
  * HamukjaNewRecipe
@@ -39,6 +40,7 @@ function HamukjaNewRecipe(){
     function minusStep() {
         if (head > 1) {
             let t = '.step' + head
+            document.querySelector(t + ' .recipe-input-text').value = '';
             document.querySelector(t).style.display = 'none';
             head -= 1;
         }
@@ -74,6 +76,17 @@ function HamukjaNewRecipe(){
                     <div>
                         <input type="text" size={50} className='email-input-text'></input>
                     </div>
+                </Row>
+                <Row className='thumbnail-input'>
+                    <div className='thumbnail-input-head'>
+                        썸네일을 등록하세요
+                    </div>
+                    <Col xs={3}>
+                        <div className='thumbnail-input-image'>
+                            <img src={imageIcon} width="20%" className='image-icon'></img>
+                            <br />사진을 드래그하세요
+                        </div>
+                    </Col>
                 </Row>
                 <Row>
                     <div className='recipe-input-head'>

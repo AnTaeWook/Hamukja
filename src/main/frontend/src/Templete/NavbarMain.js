@@ -2,17 +2,39 @@ import "./NavbarMain.css";
 import {Navbar, Container, Nav} from "react-bootstrap";
 import SignUpModal from "../Modal/SignUpModal";
 import SignInModal from "../Modal/SignInModal";
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import {useNavigate} from 'react-router-dom';
+import {useSelector, useDispatch} from 'react-redux';
+import {setMemberId} from '../_Redux/memberSlice';
+
 
 /**
  * NavbarMain
  * 상단 메인 네비게이션 바
  * 
+ * -state-
+ * memberId : 로그인 된 회원의 ID정보
+ * 
  * @author 태욱
- * @version 1.0
+ * @version 2.0
  */
 function NavbarMain(){
+
+    const memberId = useSelector((state) => state.member.id);
+    const dispatch = useDispatch();
+    // 가져온 회원 아이디 상태 변경하는 방법
+    // dispatch(setMemberId('hello123'));
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+    useEffect(() => {
+        if(memberId == ''){
+            setIsLoggedIn(false);
+        }
+        else{
+            setIsLoggedIn(true);
+        }
+    }, [memberId]);
+
     const [signUpModalOpen, setSignUpModalOpen] = useState(false);
     const [signInModalOpen, setSignInModalOpen] = useState(false);
 
@@ -33,9 +55,13 @@ function NavbarMain(){
 
     function singUpFunc(){
         openSignUpModal();
-    }
+    };
     function signInFunc(){
         openSignInModal();
+    };
+    function signOutFunc(){
+        dispatch(setMemberId(''));
+        window.alert('로그아웃 되었습니다!');
     }
 
     const navigate = useNavigate();
@@ -53,16 +79,32 @@ function NavbarMain(){
                         <Nav.Link onClick={gotoRecipes}>&emsp;레시피&emsp;</Nav.Link>
                         <Nav.Link onClick={gotoCommunity}>&emsp;커뮤니티&emsp;</Nav.Link>
                     </Nav>
-                    <Nav.Link onClick={singUpFunc}>
-                        <button className="sign-up-btn">
-                            회원가입
-                        </button>
-                    </Nav.Link>
-                    <Nav.Link onClick={signInFunc}>
-                        <button className="sign-in-btn">
-                            로그인
-                        </button>
-                    </Nav.Link>
+                    {
+                        isLoggedIn?
+                        <>
+                        <Nav.Link>
+                            {memberId}
+                        </Nav.Link>
+                        <Nav.Link onClick={signOutFunc}>
+                            <button className="sign-out-btn">
+                                로그아웃
+                            </button>
+                        </Nav.Link>
+                        </>
+                        :
+                        <>
+                        <Nav.Link onClick={singUpFunc}>
+                            <button className="sign-up-btn">
+                                회원가입
+                            </button>
+                        </Nav.Link>
+                        <Nav.Link onClick={signInFunc}>
+                            <button className="sign-in-btn">
+                                로그인
+                            </button>
+                        </Nav.Link>
+                        </>
+                    }
                 </Container>
             </Navbar>
 

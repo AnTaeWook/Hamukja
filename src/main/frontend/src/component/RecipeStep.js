@@ -10,10 +10,6 @@ import imageIcon from '../imageIcon.PNG';
  */
 function RecipeStep(props) {
 
-    function deleteStep(){
-        
-    }
-
     return (
         <Row className={'step' + props.step}>
             <Col xs={3}>
