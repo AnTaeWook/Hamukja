@@ -1,5 +1,5 @@
 import './HamukjaRecipePage.css';
-import RecipePageStep from '../Component/RecipePageStep';
+import RecipePageStep from '../Components/RecipePageStep';
 import axios from 'axios';
 import { useEffect, useState, useCallback } from 'react';
 import { Container, Col, Row } from 'react-bootstrap';

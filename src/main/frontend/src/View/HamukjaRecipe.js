@@ -1,6 +1,6 @@
 import './HamukjaRecipe.css';
-import {Container, Row, Col, Button} from "react-bootstrap";
-import Recipe from '../Component/Recipe';
+import {Container, Row, Col } from "react-bootstrap";
+import Recipe from '../Components/Recipe';
 import { useState } from 'react';
 import {useNavigate} from 'react-router-dom';
 import React, { useEffect, useCallback } from 'react';

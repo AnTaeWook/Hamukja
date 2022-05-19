@@ -1,6 +1,6 @@
 import './HamukjaCommunity.css';
 import {Container, Row, Col, Button} from "react-bootstrap";
-import Community from '../Component/Community';
+import Community from '../Components/Community';
 import { useState } from 'react';
 import {useNavigate} from 'react-router-dom';
 import React, { useCallback } from 'react';

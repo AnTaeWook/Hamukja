@@ -1,6 +1,6 @@
 import './HamukjaNewRecipe.css';
 import {Container, Row, Col, Button} from "react-bootstrap";
-import RecipeStep from '../Component/RecipeStep';
+import RecipeStep from '../Components/RecipeStep';
 import addIcon from '../addIcon.PNG';
 import minusIcon from '../minusIcon.png';
 import { useEffect, useCallback, useState } from 'react';
