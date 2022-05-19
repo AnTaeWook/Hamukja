@@ -1,38 +1,18 @@
-.HamukjaRecipe {
+.HamukjaRecipePage {
     margin-bottom: 0;
 }
 
-.HamukjaRecipe .page-header {
+.HamukjaRecipePage .page-header {
     margin-top: 6%;
     margin-bottom: 2%;
+    font-size: 300%;
 }
 
-.HamukjaRecipe .page-contents {
-    margin-top: 3%;
-    border: 1px solid black;
-    border-radius: 10px;
-    background-color: ivory;
+.HamukjaRecipePage .back-btn-area {
+    padding-left: 80%;
 }
 
-.HamukjaRecipe .recipe-image-col {
-    padding: 0;
-}
-
-.HamukjaRecipe .recipe-description {
-    margin-top: 2%;
-    padding-left: 0.5%;
-    font-size: 140%;
-}
-
-.HamukjaRecipe .recipe-description h1 {
-    font-size: 150%;
-}
-
-.HamukjaRecipe .recipe-creation-btn-area {
-    padding-left: 63%;
-}
-
-.HamukjaRecipe .recipe-creation-btn {
+.HamukjaRecipePage .back-btn {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -41,41 +21,54 @@
     border-radius: 16px;
     border: 1px solid transparent;
     color: #FFFFFF;
-    background-color: #1DC9A0;
+    background-color: #64c269;
     font-size: 16px;
     letter-spacing: 1px;
     transition: all 0.15s linear;
 }
 
-.HamukjaRecipe .recipe-creation-btn:hover {
+.HamukjaRecipePage .back-btn:hover {
     background-color: rgba(29, 201, 160, 0.08);
-    border-color: #1DC9A0;
-    color: #1DC9A0;
+    border-color: #64c269;
+    color: #64c269;
     transform: translateY(-5px) scale(1.05);
 }
 
-.HamukjaRecipe .recipe-creation-btn:active {
+.HamukjaRecipePage .back-btn:active {
     background-color: transparent;
     border-color: #1DC9A0;
     color: #1DC9A0;
     transform: translateY(5px) scale(0.95);
 }
 
-.HamukjaRecipe .recipe-creation-btn:disabled {
+.HamukjaRecipePage .back-btn:disabled {
     background-color: rgba(255, 255, 255, 0.16);
     color: #8E8E93;
     border-color: #8E8E93;
 }
 
-.HamukjaRecipe .recipes-sort {
-    padding: 7%;
+.HamukjaRecipePage .page-contents {
+    margin-top: 3%;
+    border: 1px solid black;
+    border-radius: 10px;
+    background-color: rgb(242, 245, 235);
 }
 
-.HamukjaRecipe .recipe-thumbnail-image {
+.HamukjaRecipePage .recipe-image-col {
+    padding: 0;
+}
+
+.HamukjaRecipePage .recipe-step-image {
     text-align: center;
     height: 400px;
     border-radius: 10px 0px 0px 10px;
     background-size: cover;
     background-repeat: no-repeat;
     margin-right: 3%;
+}
+
+.HamukjaRecipePage .recipe-step-article {
+    margin-top: 2%;
+    padding-left: 0.5%;
+    font-size: 140%;
 }

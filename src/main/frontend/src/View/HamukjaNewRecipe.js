@@ -1,10 +1,9 @@
 import './HamukjaNewRecipe.css';
 import {Container, Row, Col, Button} from "react-bootstrap";
-import { useState } from 'react';
 import RecipeStep from '../Component/RecipeStep';
 import addIcon from '../addIcon.PNG';
 import minusIcon from '../minusIcon.png';
-import { useEffect, useCallback } from 'react';
+import { useEffect, useCallback, useState } from 'react';
 import imageIcon from '../imageIcon.PNG';
 import {useSelector} from 'react-redux';
 import {useNavigate} from 'react-router-dom';
@@ -42,10 +41,6 @@ function HamukjaNewRecipe(){
             document.querySelector(t).style.display = 'none';
         }
     }, []);
-
-    useEffect(() => {
-        console.log(stepImages);
-    }, [stepImages]);
 
     useEffect(() => {
         if(thumbnailIn != null){
@@ -121,12 +116,33 @@ function HamukjaNewRecipe(){
     }
 
     function sendRecipe() {
+        if((memberId == '') && (document.querySelector('.email-input-text').value == '')){
+            window.alert('로그인 또는 이메일을 작성해 주세요!');
+            return;
+        }
+        if(document.querySelector('.title-input-text').value == ''){
+            window.alert('제목을 작성해 주세요!');
+            return;
+        }
         let fd = new FormData();
         fd.append('title', document.querySelector('.title-input-text').value);
         fd.append('desc', document.querySelector('.desc-input-text').value);
         fd.append('memberId', memberId);
         fd.append('email', document.querySelector('.email-input-text').value);
         fd.append('thumbnail', thumbnailIn);
+        
+        for(let i=0; i<head; i++){
+            if(document.querySelector('.step' + (i + 1) + ' .recipe-input-text').value == ''){
+                window.alert('레시피 내용을 작성해 주세요!');
+                return;
+            }
+            fd.append('stepArticles', document.querySelector('.step' + (i + 1) + ' .recipe-input-text').value);
+            if(stepImages[i] != null){
+                fd.append('stepImagesLabels', i + 1);
+                fd.append('stepImages', stepImages[i]);
+            }
+        }
+        
         axios({
             method: "post",
             url: "/hamukja/recipe/new",

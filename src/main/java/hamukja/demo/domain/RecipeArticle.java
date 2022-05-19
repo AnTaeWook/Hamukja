@@ -24,4 +24,12 @@ public class RecipeArticle {
         this.recipe = recipe;
         recipe.getRecipeArticles().add(this);
     }
+
+    public static RecipeArticle create(Recipe recipe, int step, String article){
+        RecipeArticle recipeArticle = new RecipeArticle();
+        recipeArticle.setRecipe(recipe);
+        recipeArticle.setStep(step);
+        recipeArticle.setArticle(article);
+        return recipeArticle;
+    }
 }

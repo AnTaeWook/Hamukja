@@ -15,6 +15,12 @@ function SignUpModal(props) {
 
     function registration(){
       let fd = new FormData();
+      if(document.querySelector('.sign-up-id').value == '' || 
+         document.querySelector('.sign-up-pw').value == '' || 
+         document.querySelector('.sign-up-email').value == ''){
+          window.alert('빈칸을 작성해 주세요!');
+          return;
+      }
       fd.append('id', document.querySelector('.sign-up-id').value);
       fd.append('pw', document.querySelector('.sign-up-pw').value);
       fd.append('email', document.querySelector('.sign-up-email').value);

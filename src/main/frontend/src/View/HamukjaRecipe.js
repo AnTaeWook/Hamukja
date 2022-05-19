@@ -18,7 +18,7 @@ import axios from 'axios';
  * @author 태욱
  * @version 3.0
  */
-function HamukjaRecipe() {
+function HamukjaRecipe(props) {
 
     let [recipeItems, setRecipeItems] = useState([
         // {"id" : 1, "title" : "초간단 샐러드", "desc" : "상추와 당근, 토마토만 있다면 누구나 만들 수 있는 샐러드"}
@@ -46,6 +46,11 @@ function HamukjaRecipe() {
 
     const navigate = useNavigate();
     const gotoNewRecipe = useCallback(() => navigate('/newrecipe', {replace: true}), [navigate]);
+    const gotoRecipePage = useCallback(() => navigate('/recipe-page', {replace: true}), [navigate]);
+
+    function openRecipePage(e){
+        gotoRecipePage();
+    }
 
     return (
         <Container className='HamukjaRecipe'>
@@ -65,7 +70,7 @@ function HamukjaRecipe() {
             </Row>
             {
                 recipeItems.map((item, index) => {
-                    return <Recipe key={index} item={item}/>
+                    return <Recipe key={index} item={item} openRecipePage={openRecipePage} setRecipeNumber={props.setRecipeNumber}/>
                 })
             }
         </Container>

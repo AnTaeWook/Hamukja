@@ -20,6 +20,11 @@ function SignInModal(props) {
 
     function logIn(){
       let fd = new FormData();
+      if(document.querySelector('.sign-in-id').value == '' ||
+         document.querySelector('.sign-in-pw').value == ''){
+          window.alert('빈칸을 작성해 주세요!');
+          return;
+      }
       fd.append('id', document.querySelector('.sign-in-id').value);
       fd.append('pw', document.querySelector('.sign-in-pw').value);
       axios({

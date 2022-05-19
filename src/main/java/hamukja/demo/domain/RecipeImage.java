@@ -26,4 +26,13 @@ public class RecipeImage {
         this.recipe = recipe;
         recipe.getRecipeImages().add(this);
     }
+
+    public static RecipeImage create(Recipe recipe, int step, String name, String path){
+        RecipeImage recipeImage = new RecipeImage();
+        recipeImage.setRecipe(recipe);
+        recipeImage.setStep(step);
+        recipeImage.setName(name);
+        recipeImage.setPath(path);
+        return recipeImage;
+    }
 }
