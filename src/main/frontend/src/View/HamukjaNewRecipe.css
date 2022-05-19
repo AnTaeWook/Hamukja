@@ -57,6 +57,9 @@
     font-size: 150%;
 }
 
+.HamukjaNewRecipe .thumbnail-input-label {
+    width: 100%;
+}
 
 .HamukjaNewRecipe .recipe-input-head {
     font-size: 150%;
@@ -77,6 +80,8 @@
     border: 1px solid black;
     border-radius: 2%;
     padding-top: 20%;
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 .HamukjaNewRecipe .recipe-input-text {
@@ -115,3 +120,4 @@
     text-align: right;
     margin-right: 11%;
 }
+

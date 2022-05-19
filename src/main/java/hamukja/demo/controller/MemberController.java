@@ -14,8 +14,8 @@ public class MemberController {
 
     @PostMapping("/hamukja/sign-up")
     public String create(@RequestParam("id")String id,
-                      @RequestParam("pw")String password,
-                      @RequestParam("email")String email){
+                         @RequestParam("pw")String password,
+                        @RequestParam("email")String email){
         Member member = new Member();
         member.setId(id);
         member.setPassword(password);

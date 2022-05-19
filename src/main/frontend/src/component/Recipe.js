@@ -8,10 +8,13 @@ import { Row, Col } from "react-bootstrap";
  * @version 1.0
  */
 function Recipe(props){
+
+    let imgSrc = "/hamukja/thumbnail/" + props.item["id"];
+
     return(
         <Row className='page-contents'>
             <Col xs='4' className='recipe-image-col'>
-                <img className='recipe-image' src={props.item["thumbnail"]} width="90%" />
+                <div className="recipe-thumbnail-image" style={{"backgroundImage" : `url(${imgSrc})`}}></div>
             </Col>
             <Col xs='8' className='recipe-description'>
                 <h2>{props.item["title"]}</h2>

@@ -4,21 +4,32 @@ import { useState } from 'react';
 import RecipeStep from '../Component/RecipeStep';
 import addIcon from '../addIcon.PNG';
 import minusIcon from '../minusIcon.png';
-import { useEffect } from 'react';
+import { useEffect, useCallback } from 'react';
 import imageIcon from '../imageIcon.PNG';
+import {useSelector} from 'react-redux';
+import {useNavigate} from 'react-router-dom';
+import axios from 'axios';
 
 /**
  * HamukjaNewRecipe
  * 새 레시피 작성 페이지
+ * 레시피 메타데이터의 서버 전송 구현
  * 
  * -state-
  * recipeSteps : 레시피 단계 작성을 위한 변수
+ * isThumbnailIn : 썸네일 이미지 파일
  * 
  * @author 태욱
- * @version 1.0
+ * @version 2.0
  */
 function HamukjaNewRecipe(){
 
+    const memberId = useSelector((state) => state.member.id);
+
+    const navigate = useNavigate();
+    const gotoHome = useCallback(() => navigate('/', {replace: true}), [navigate]);
+
+    const [thumbnailIn, setThumbnailIn] = useState(null);
     let [recipeSteps, setRecipeSteps] = useState([1, 2, 3, 4, 5]);
     let head = 1;
 
@@ -28,6 +39,21 @@ function HamukjaNewRecipe(){
             document.querySelector(t).style.display = 'none';
         }
     }, []);
+
+    useEffect(() => {
+        if(thumbnailIn != null){
+            const imgEl = document.querySelector('.thumbnail-input-image');
+            const reader = new FileReader();
+            reader.onload = () => {
+                imgEl.style.backgroundImage = `url(${reader.result})`;
+            }
+            reader.readAsDataURL(thumbnailIn);
+        }
+        else{
+            const imgEl = document.querySelector('.thumbnail-input-image');
+            imgEl.style.backgroundImage = 'none';
+        }
+    }, [thumbnailIn]);
 
     function addStep() {
         if (head < 5) {
@@ -46,6 +72,33 @@ function HamukjaNewRecipe(){
         }
     }
 
+    function dropThumbnail(e) {
+        e.preventDefault();
+        setThumbnailIn(e.dataTransfer.files[0]);
+    }
+
+    function getThumbnail(e) {
+        setThumbnailIn(e.target.files[0]);
+    }
+
+    function sendRecipe() {
+        let fd = new FormData();
+        fd.append('title', document.querySelector('.title-input-text').value);
+        fd.append('desc', document.querySelector('.desc-input-text').value);
+        fd.append('memberId', memberId);
+        fd.append('email', document.querySelector('.email-input-text').value);
+        fd.append('thumbnail', thumbnailIn);
+        axios({
+            method: "post",
+            url: "/hamukja/recipe/new",
+            data: fd,
+        }).then(response => {
+            window.alert('레시피가 등록되었습니다!');
+            gotoHome();
+        }).catch(() => {
+            window.alert('서버의 문제로 레시피를 등록하지 못했습니다..');
+        })
+    }
 
     return(
         <div className='HamukjaNewRecipe'>
@@ -82,10 +135,22 @@ function HamukjaNewRecipe(){
                         썸네일을 등록하세요
                     </div>
                     <Col xs={3}>
-                        <div className='thumbnail-input-image'>
-                            <img src={imageIcon} width="20%" className='image-icon'></img>
-                            <br />사진을 드래그하세요
-                        </div>
+                        <input type="file" id="thumbnail-input-fileSearch" style={{ display: "none" }} accept='img/*' onChange={getThumbnail} />
+                        <label className='thumbnail-input-label' htmlFor='thumbnail-input-fileSearch'>
+                            <div className='thumbnail-input-image' onDrop={dropThumbnail} onDragOver={(e) => {
+                                e.preventDefault();
+                            }}>
+                                {
+                                    thumbnailIn ?
+                                        <div>　</div>
+                                        :
+                                        <>
+                                            <img src={imageIcon} width="20%" className='image-icon'></img>
+                                            <br />사진을 드래그하세요
+                                        </>
+                                }
+                            </div>
+                        </label>
                     </Col>
                 </Row>
                 <Row>
@@ -107,7 +172,7 @@ function HamukjaNewRecipe(){
                     </div>
                 </Row>
                 <div className='submit-btn'>
-                    <Button variant="primary" size="lg">
+                    <Button variant="primary" size="lg" onClick={sendRecipe}>
                         작성 완료
                     </Button>
                 </div>
