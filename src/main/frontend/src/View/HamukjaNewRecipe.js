@@ -9,18 +9,20 @@ import imageIcon from '../imageIcon.PNG';
 import {useSelector} from 'react-redux';
 import {useNavigate} from 'react-router-dom';
 import axios from 'axios';
+import _ from 'lodash';
 
 /**
  * HamukjaNewRecipe
  * 새 레시피 작성 페이지
- * 레시피 메타데이터의 서버 전송 구현
+ * 레시피 메타데이터의 서버 전송 구현(2.0)
+ * 각 단계 별 이미지 및 설명 서버로의 송신 구현(3.0)
  * 
  * -state-
  * recipeSteps : 레시피 단계 작성을 위한 변수
  * isThumbnailIn : 썸네일 이미지 파일
  * 
  * @author 태욱
- * @version 2.0
+ * @version 3.0
  */
 function HamukjaNewRecipe(){
 
@@ -30,8 +32,9 @@ function HamukjaNewRecipe(){
     const gotoHome = useCallback(() => navigate('/', {replace: true}), [navigate]);
 
     const [thumbnailIn, setThumbnailIn] = useState(null);
+    const [stepImages, setStepImages] = useState([null, null, null, null, null]);
     let [recipeSteps, setRecipeSteps] = useState([1, 2, 3, 4, 5]);
-    let head = 1;
+    let [head, setHead] = useState(1);
 
     useEffect(() => {
         for(let i=2; i<6; i++){
@@ -39,6 +42,10 @@ function HamukjaNewRecipe(){
             document.querySelector(t).style.display = 'none';
         }
     }, []);
+
+    useEffect(() => {
+        console.log(stepImages);
+    }, [stepImages]);
 
     useEffect(() => {
         if(thumbnailIn != null){
@@ -55,10 +62,28 @@ function HamukjaNewRecipe(){
         }
     }, [thumbnailIn]);
 
+    useEffect(() => {
+        for(let i=0; i<5; i++){
+            if(stepImages[i] != null){
+                const imgEl = document.querySelector('.image-step-' + (i + 1));
+                const reader = new FileReader();
+                reader.onload = () => {
+                    imgEl.style.backgroundImage = `url(${reader.result})`;
+                }
+                reader.readAsDataURL(stepImages[i]);
+            }
+            else{
+                const imgEl = document.querySelector('.image-step-' + (i + 1));
+                imgEl.style.backgroundImage = 'none';
+            }
+        }
+    }, [stepImages]);
+
     function addStep() {
         if (head < 5) {
-            head += 1;
-            let t = '.step' + head
+            let tempForHead = head + 1;
+            setHead(tempForHead);
+            let t = '.step' + tempForHead;
             document.querySelector(t).style.display = '';
         }
     };
@@ -68,7 +93,8 @@ function HamukjaNewRecipe(){
             let t = '.step' + head
             document.querySelector(t + ' .recipe-input-text').value = '';
             document.querySelector(t).style.display = 'none';
-            head -= 1;
+            let tempForHead = head - 1;
+            setHead(tempForHead);
         }
     }
 
@@ -79,6 +105,19 @@ function HamukjaNewRecipe(){
 
     function getThumbnail(e) {
         setThumbnailIn(e.target.files[0]);
+    }
+
+    function dropStepImage(e) {
+        e.preventDefault();
+        let temp = _.cloneDeep(stepImages);
+        temp[Number(e.target.id) - 1] = e.dataTransfer.files[0];
+        setStepImages(temp);
+    }
+
+    function getStepImage(e) {
+        let temp = _.cloneDeep(stepImages);
+        temp[Number(e.target.id[0]) - 1] = e.target.files[0];
+        setStepImages(temp);
     }
 
     function sendRecipe() {
@@ -135,7 +174,7 @@ function HamukjaNewRecipe(){
                         썸네일을 등록하세요
                     </div>
                     <Col xs={3}>
-                        <input type="file" id="thumbnail-input-fileSearch" style={{ display: "none" }} accept='img/*' onChange={getThumbnail} />
+                        <input type="file" id="thumbnail-input-fileSearch" style={{ display: "none" }} accept='img/*' onChange={getThumbnail}></input>
                         <label className='thumbnail-input-label' htmlFor='thumbnail-input-fileSearch'>
                             <div className='thumbnail-input-image' onDrop={dropThumbnail} onDragOver={(e) => {
                                 e.preventDefault();
@@ -161,7 +200,7 @@ function HamukjaNewRecipe(){
 
                 {
                     recipeSteps.map((item, index) => {
-                        return <RecipeStep step={item} key={index}/>
+                        return <RecipeStep step={item} key={index} getStepImage={getStepImage} dropStepImage={dropStepImage} stepImages={stepImages}/>
                     })
                 }
 

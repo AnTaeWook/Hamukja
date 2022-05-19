@@ -35,7 +35,8 @@ public class RecipeController {
 
     private final RecipeService recipeService;
     private final MemberService memberService;
-    private String directoryPath = "C:\\SpringBoot\\Hamukja\\src\\main\\resources\\static";
+//    private String directoryPath = "C:\\SpringBoot\\Hamukja\\src\\main\\resources\\static";
+    private String directoryPath = "/Users/antk7894/Desktop/Spring/Hamukja/src/main/resources";
 
     @PostMapping("/hamukja/recipe/new")
     public int create(@RequestParam("title")String title,
@@ -47,7 +48,7 @@ public class RecipeController {
         Member member = memberService.findOne(memberId);
         Long recipeId = recipeService.join(title, desc, email, member);
         if(thumbnail != null) {
-            String filePath = directoryPath + "\\" + recipeId;
+            String filePath = directoryPath + "/" + recipeId;
             String fileName = "thumbnail_" + thumbnail.getOriginalFilename();
             saveFile(thumbnail, filePath, fileName);
             recipeService.addThumbnail(recipeId, filePath, fileName);
@@ -74,10 +75,11 @@ public class RecipeController {
 
         String imageRoot = "";
         if(recipe.getThumbnailName() == null){
-            imageRoot = "C:\\SpringBoot\\Hamukja\\src\\main\\resources\\static\\noThumbnail.PNG";
+//            imageRoot = "C:/SpringBoot\\Hamukja\\src\\main\\resources\\static\\noThumbnail.PNG";
+            imageRoot = "/Users/antk7894/Desktop/Spring/Hamukja/src/main/resources/static/noThumbnail.PNG";
         }
         else{
-            imageRoot = recipe.getThumbnailPath() + "\\" + recipe.getThumbnailName();
+            imageRoot = recipe.getThumbnailPath() + "/" + recipe.getThumbnailName();
         }
 
         Resource resource = new FileSystemResource(imageRoot);
