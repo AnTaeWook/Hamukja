@@ -1,5 +1,5 @@
 import './App.css';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, HashRouter } from 'react-router-dom';
 import NavbarMain from './Templete/NavbarMain';
 import HamukjaHome from './View/HamukjaHome';
 import Footer from './Templete/Footer';
@@ -10,16 +10,8 @@ import HamukjaNewPost from './View/HamukjaNewPost';
 import HamukjaRecipePage from './View/HamukjaRecipePage';
 import { useState } from 'react';
 
-/**
- * App
- * 메인 라우팅 컴포넌트
- * 
- * -state-
- * recipeItems : 레시피의 썸네일과 제목, 간략한 설명 등의 정보
- * 
- * @author 태욱
- * @version 1.0
- */
+
+
 function App() {
 
   const [recipeNumber, setRecipeNumber] = useState(0);

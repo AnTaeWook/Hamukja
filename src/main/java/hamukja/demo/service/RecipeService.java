@@ -6,14 +6,6 @@ import hamukja.demo.repository.RecipeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.Assert;
-import org.springframework.util.StringUtils;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 
 @Service
@@ -24,7 +16,7 @@ public class RecipeService {
     private final RecipeRepository recipeRepository;
 
     @Transactional
-    public Long join(String title, String desc, String email, Member member){
+    public Long join(String title, String desc, String email, Member member, String fileName, String filePath){
         Recipe recipe;
         if(member == null){
             recipe = Recipe.createRecipe();
@@ -36,15 +28,9 @@ public class RecipeService {
         }
         recipe.setTitle(title);
         recipe.setDesc(desc);
-        return recipeRepository.save(recipe);
-    }
-
-    @Transactional
-    public void addThumbnail(Long id, String filePath, String fileName){
-        Recipe recipe = recipeRepository.findOne(id);
-        recipe.setThumbnailPath(filePath);
         recipe.setThumbnailName(fileName);
-        recipeRepository.save(recipe);
+        recipe.setThumbnailPath(filePath);
+        return recipeRepository.save(recipe);
     }
 
     public Recipe findOne(Long id) { return  recipeRepository.findOne(id); }

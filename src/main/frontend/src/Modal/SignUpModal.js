@@ -1,15 +1,8 @@
 import "./SignUpModal.css";
 import axios from "axios";
 
-/**
- * SignUpModal
- * 회원가입 모달
- * 
- * 서버로 회원 가입 정보 전달 구현 
- * 
- * @author 태욱
- * @version 2.0
- */
+
+
 function SignUpModal(props) {
     const { open, close } = props;
 

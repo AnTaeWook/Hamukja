@@ -1,17 +1,11 @@
 import { Row, Col } from "react-bootstrap";
 import { useEffect } from 'react';
 
-/**
- * Recipe
- * 레시피 컴포넌트
- * 클릭 시 각 레시피 페이지로 이동(2.0)
- * 
- * @author 태욱
- * @version 2.0
- */
+
+
 function Recipe(props){
 
-    let imgSrc = "/hamukja/thumbnail/" + props.item["id"];
+    let imgSrc = props.item["thumbnail"];
 
     return(
         <Row className='page-contents' onClick={() => {

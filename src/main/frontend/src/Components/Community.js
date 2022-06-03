@@ -1,12 +1,7 @@
 import { Row, Col } from "react-bootstrap";
 
-/**
- * Community
- * 게시글 컴포넌트
- * 
- * @author 태욱
- * @version 1.0
- */
+
+
 function Community(props) {
     return (
         <Row className='post-contents'>

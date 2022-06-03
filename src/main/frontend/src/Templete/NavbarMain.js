@@ -8,16 +8,7 @@ import {useSelector, useDispatch} from 'react-redux';
 import {setMemberId} from '../_Redux/memberSlice';
 
 
-/**
- * NavbarMain
- * 상단 메인 네비게이션 바
- * 
- * -state-
- * memberId : 로그인 된 회원의 ID정보
- * 
- * @author 태욱
- * @version 2.0
- */
+
 function NavbarMain(){
 
     const memberId = useSelector((state) => state.member.id);

@@ -1,14 +1,8 @@
 import {Container, Row, Col, Button} from "react-bootstrap";
 import './HamukjaNewPost.css';
 
-/**
- * HamukjaNewPost
- * 커뮤니티 새 게시글 작성 페이지
- * 
- * 
- * @author 태욱
- * @version 1.0
- */
+
+
 function HamukjaNewPost(){
     return(
         <div className='HamukjaNewPost'>

@@ -3,14 +3,8 @@ import {useDispatch} from 'react-redux';
 import {setMemberId} from '../_Redux/memberSlice';
 import axios from "axios";
 
-/**
- * SignInModal
- * 로그인 모달
- * 로그인 정보 전달 후 유저 상태 관리(2.0)
- * 
- * @author 태욱
- * @version 2.0
- */
+
+
 function SignInModal(props) {
 
     const dispatch = useDispatch();

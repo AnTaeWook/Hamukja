@@ -1,13 +1,8 @@
 import './Footer.css';
 import {Container, Row, Col} from "react-bootstrap";
 
-/**
- * Footer
- * 하단 맺음 컨텐츠
- * 
- * @author 태욱
- * @version 1.0
- */
+
+
 function Footer() {
     return (
         <Container className='footer'>

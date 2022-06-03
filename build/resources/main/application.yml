@@ -7,7 +7,7 @@ Spring:
 
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     properties:
       hibernate:
 #        show_sql: true
@@ -16,3 +16,9 @@ Spring:
   logging.level:
     org.hibernate.SQL: debug
 #    org.hibernate.type: trace
+
+  profiles:
+    include:
+      - aws
+      - credentials
+

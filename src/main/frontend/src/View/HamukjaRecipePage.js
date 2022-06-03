@@ -5,13 +5,8 @@ import { useEffect, useState, useCallback } from 'react';
 import { Container, Col, Row } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 
-/**
- * HamukjaRecipePage
- * 레시피 항목 페이지
- * 
- * @author 태욱
- * @version 1.0
- */
+
+
 function HamukjaRecipePage(props){
 
     const navigate = useNavigate();
@@ -19,6 +14,7 @@ function HamukjaRecipePage(props){
 
     const [recipeTitle, setRecipeTitle] = useState('');
     const [recipeArticles, setRecipeArticles] = useState([]);
+    const [recipeImages, setRecipeImages] = useState([]);
 
     useEffect(() => {
         axios({
@@ -27,11 +23,12 @@ function HamukjaRecipePage(props){
         }).then(res => {
             setRecipeTitle(res.data['title']);
             setRecipeArticles(res.data['articles']);
+            setRecipeImages(res.data['imagePaths'])
         }).catch(() => {
             console.log('error!');
         })
     }, []);
-
+    
     return(
         <Container className='HamukjaRecipePage'>
             <h1 className='page-header'>
@@ -44,8 +41,7 @@ function HamukjaRecipePage(props){
             </Row>
             {
                 recipeArticles.map((item, index) => {
-                    return <RecipePageStep key={index} step={index} 
-                    item={item} recipeNumber={props.recipeNumber}/>
+                    return <RecipePageStep key={index} step={index} item={item} recipeImages={recipeImages}/>
                 })
             }
         </Container>

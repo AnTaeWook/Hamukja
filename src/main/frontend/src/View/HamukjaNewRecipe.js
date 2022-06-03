@@ -10,19 +10,8 @@ import {useNavigate} from 'react-router-dom';
 import axios from 'axios';
 import _ from 'lodash';
 
-/**
- * HamukjaNewRecipe
- * 새 레시피 작성 페이지
- * 레시피 메타데이터의 서버 전송 구현(2.0)
- * 각 단계 별 이미지 및 설명 서버로의 송신 구현(3.0)
- * 
- * -state-
- * recipeSteps : 레시피 단계 작성을 위한 변수
- * isThumbnailIn : 썸네일 이미지 파일
- * 
- * @author 태욱
- * @version 3.0
- */
+
+
 function HamukjaNewRecipe(){
 
     const memberId = useSelector((state) => state.member.id);

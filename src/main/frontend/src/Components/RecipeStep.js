@@ -1,14 +1,8 @@
 import {Row, Col} from "react-bootstrap";
 import imageIcon from '../imageIcon.PNG';
 
-/**
- * RecipeStep
- * 레시피 작성 시 단계 컴포넌트
- * 각 단계 별 이미지 미리보기 구현(2.0)
- * 
- * @author 태욱
- * @version 2.0
- */
+
+
 function RecipeStep(props) {
 
     return (

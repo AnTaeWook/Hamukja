@@ -5,17 +5,8 @@ import { useState } from 'react';
 import {useNavigate} from 'react-router-dom';
 import React, { useCallback } from 'react';
 
-/**
- * HamukjaCommunity
- * 식재료 커뮤니티 페이지
- * 커뮤니티 컴포넌트 별 매핑 적용(2.0)
- * 
- * -state-
- * communityItems : 커뮤니티 게시글의 분류와 제목, 지역 등의 정보
- * 
- * @author 태욱
- * @version 1.0
- */
+
+
 function HamukjaCommunity() {
 
     let [communityItems, setCommunityItems] = useState([

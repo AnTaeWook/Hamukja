@@ -3,13 +3,8 @@ import {Container, Row} from "react-bootstrap";
 import {useNavigate} from 'react-router-dom';
 import React, { useCallback } from 'react';
 
-/**
- * HamukjaHome
- * 홈 페이지 메인 컨텐츠
- * 
- * @author 태욱
- * @version 1.0
- */
+
+
 function HamukjaHome(){
 
     const navigate = useNavigate();
