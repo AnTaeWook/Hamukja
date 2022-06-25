@@ -23,6 +23,10 @@ public class RecipeRepository {
         return recipe.getId();
     }
 
+    public void delete(Recipe recipe){
+        em.remove(recipe);
+    }
+
     public Recipe findOne(Long id) {
         return em.find(Recipe.class, id);
     }

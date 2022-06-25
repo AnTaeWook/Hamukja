@@ -8,8 +8,13 @@
     font-size: 300%;
 }
 
-.HamukjaRecipePage .back-btn-area {
-    padding-left: 80%;
+.HamukjaRecipePage .update-btn{
+    margin-left: 13%;
+    margin-right: 8%;
+}
+
+.HamukjaRecipePage .update-btn, .HamukjaRecipePage .delete-btn{
+    margin-top: 5%;
 }
 
 .HamukjaRecipePage .back-btn {
@@ -22,7 +27,7 @@
     border: 1px solid transparent;
     color: #FFFFFF;
     background-color: #64c269;
-    font-size: 16px;
+    font-size: 30cpx;
     letter-spacing: 1px;
     transition: all 0.15s linear;
 }

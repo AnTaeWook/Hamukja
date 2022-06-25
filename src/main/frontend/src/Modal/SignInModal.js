@@ -3,8 +3,6 @@ import {useDispatch} from 'react-redux';
 import {setMemberId} from '../_Redux/memberSlice';
 import axios from "axios";
 
-
-
 function SignInModal(props) {
 
     const dispatch = useDispatch();

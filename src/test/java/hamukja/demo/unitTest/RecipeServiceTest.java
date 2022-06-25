@@ -26,21 +26,13 @@ public class RecipeServiceTest {
     @Test
     public void 레시피등록() throws Exception{
         Member member = new Member();
-        member.setId("antk7894");
-        member.setPassword("dksxodnr9");
-        member.setEmail("antk7894@naver.com");
+        member.setId("testId");
+        member.setPassword("testPassword");
+        member.setEmail("testEmail@naver.com");
 
         memberRepository.save(member);
 
-        Long saveId = recipeService.join("삼겹살 볶음밥", "삼겹살과 상추로만 만드는 간단 비빔밥",
-                "", member, "", "");
-        System.out.println(recipeRepository.findOne(saveId).getTitle());
-    }
-
-    @Test
-    public void 레시피등록_비회원() throws Exception{
-        Long saveId = recipeService.join("삼겹살 볶음밥", "삼겹살과 상추로만 만드는 간단 비빔밥",
-                "antk7894@naver.com", null, "", "");
+        Long saveId = recipeService.join("삼겹살 볶음밥", "삼겹살과 상추로만 만드는 간단 비빔밥", member, "", "");
         System.out.println(recipeRepository.findOne(saveId).getTitle());
     }
 }

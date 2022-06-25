@@ -76,7 +76,7 @@
     background-image: url('../signin.jpg');
     background-size: contain;
     background-repeat: no-repeat;
-    background-position: 108%;
+    background-position: 118%;
 }
 
 @keyframes sign-in-modal-show {

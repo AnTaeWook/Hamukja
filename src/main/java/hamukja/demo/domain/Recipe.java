@@ -2,6 +2,7 @@ package hamukja.demo.domain;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -21,10 +22,10 @@ public class Recipe {
     @JoinColumn(name = "memberId")
     private Member member;
 
-    @OneToMany(mappedBy = "recipe")
+    @OneToMany(mappedBy = "recipe", cascade = CascadeType.REMOVE)
     private List<RecipeImage> recipeImages = new ArrayList<>();
 
-    @OneToMany(mappedBy = "recipe")
+    @OneToMany(mappedBy = "recipe", cascade = CascadeType.REMOVE)
     private List<RecipeArticle> recipeArticles = new ArrayList<>();
 
     private String thumbnailPath;
@@ -49,12 +50,6 @@ public class Recipe {
     public static Recipe createRecipe(Member member) {
         Recipe recipe = new Recipe();
         recipe.setMember(member);
-        recipe.setUploadTime(LocalDateTime.now());
-        return recipe;
-    }
-    // 생성 메서드(비회원)
-    public static Recipe createRecipe() {
-        Recipe recipe = new Recipe();
         recipe.setUploadTime(LocalDateTime.now());
         return recipe;
     }

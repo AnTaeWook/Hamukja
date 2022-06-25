@@ -1,38 +1,68 @@
-import './HamukjaNewRecipe.css';
+import './HamukjaReviseRecipe.css';
 import {Container, Row, Col, Button} from "react-bootstrap";
 import RecipeStep from '../Components/RecipeStep';
 import addIcon from '../addIcon.PNG';
 import minusIcon from '../minusIcon.png';
 import { useEffect, useCallback, useState } from 'react';
 import imageIcon from '../imageIcon.PNG';
-import {useSelector} from 'react-redux';
 import {useNavigate} from 'react-router-dom';
 import axios from 'axios';
 import _ from 'lodash';
 
 
-
-function HamukjaNewRecipe(){
-
-    const memberId = useSelector((state) => state.member.id);
+function HamukjaReviseRecipe(props){
 
     const navigate = useNavigate();
-    const gotoHome = useCallback(() => navigate('/', {replace: true}), [navigate]);
+    const gotoRecipes = useCallback(() => navigate('/recipes', {replace: true}), [navigate]);
 
     const [thumbnailIn, setThumbnailIn] = useState(null);
     const [stepImages, setStepImages] = useState([null, null, null, null, null]);
-    let [recipeSteps, setRecipeSteps] = useState([1, 2, 3, 4, 5]);
-    let [head, setHead] = useState(1);
+    const [recipeSteps, setRecipeSteps] = useState([1, 2, 3, 4, 5]);
+    const [head, setHead] = useState(5);
+    const [mods, setMods] = useState([false, false, false, false, false, false]);
 
     useEffect(() => {
-        for(let i=2; i<6; i++){
-            let t = '.step' + i
-            document.querySelector(t).style.display = 'none';
-        }
+        let recipeLength = 0;
+
+        axios({
+            method: "get",
+            url: "/hamukja/recipe-for-revise/" + props.recipeNumber,
+        }).then(res => {
+            recipeLength = res.data['articles'].length;
+            let imageExisted = _.cloneDeep(stepImages);
+
+            document.querySelector('.title-input-text').value = res.data['title'];
+            document.querySelector('.desc-input-text').value = res.data['desc'];
+            if(res.data['thumbnailPath'] != 'noImage'){
+                setThumbnailIn("exist");
+                document.querySelector('.thumbnail-input-image').style.backgroundImage = `url(${res.data['thumbnailPath']})`;
+            }
+
+            for(let i=0; i<recipeLength; i++){
+                document.querySelector('.step' + (i + 1) + ' .recipe-input-text').value = res.data['articles'][i];
+                if(res.data['imagePaths'][i] != 'noImage'){
+                    imageExisted[i] = "exist";
+                    document.querySelector('.image-step-' + (i + 1)).style.backgroundImage = `url(${res.data['imagePaths'][i]})`;
+                }
+            }
+
+            for(let i=recipeLength + 1; i<6; i++){
+                let t = '.step' + i
+                document.querySelector(t).style.display = 'none';
+            }
+
+            setStepImages(imageExisted);
+            setHead(recipeLength);
+        }).catch(() => {
+            console.log('error for get revise-recipe data!');
+        })
     }, []);
 
     useEffect(() => {
         if(thumbnailIn != null){
+            if(thumbnailIn === "exist"){
+                return
+            }
             const imgEl = document.querySelector('.thumbnail-input-image');
             const reader = new FileReader();
             reader.onload = () => {
@@ -49,6 +79,9 @@ function HamukjaNewRecipe(){
     useEffect(() => {
         for(let i=0; i<5; i++){
             if(stepImages[i] != null){
+                if(stepImages[i] === "exist"){
+                    continue
+                }
                 const imgEl = document.querySelector('.image-step-' + (i + 1));
                 const reader = new FileReader();
                 reader.onload = () => {
@@ -78,6 +111,12 @@ function HamukjaNewRecipe(){
             document.querySelector(t + ' .recipe-input-text').value = '';
             document.querySelector(t).style.display = 'none';
 
+            if(stepImages[head - 1] === "exist" && mods[head] === false){
+                temp = _.cloneDeep(mods);
+                temp[head] = true;
+                setMods(temp);
+            }
+
             let temp = _.cloneDeep(stepImages);
             temp[head - 1] = null;
             setStepImages(temp);
@@ -95,6 +134,12 @@ function HamukjaNewRecipe(){
         else{
             setThumbnailIn(e.dataTransfer.files[0]);
         }
+
+        if(mods[0] === false){
+            let temp = _.cloneDeep(mods);
+            temp[0] = true;
+            setMods(temp);
+        }
     }
 
     function getThumbnail(e) {
@@ -103,6 +148,12 @@ function HamukjaNewRecipe(){
         }
         else{
             setThumbnailIn(e.target.files[0]);
+        }
+
+        if(mods[0] === false){
+            let temp = _.cloneDeep(mods);
+            temp[0] = true;
+            setMods(temp);
         }
     }
 
@@ -116,6 +167,12 @@ function HamukjaNewRecipe(){
             temp[Number(e.target.id) - 1] = e.dataTransfer.files[0];
         }
         setStepImages(temp);
+
+        if(mods[Number(e.target.id)] === false){
+            temp = _.cloneDeep(mods);
+            temp[Number(e.target.id)] = true;
+            setMods(temp);
+        }
     }
 
     function getStepImage(e) {
@@ -127,9 +184,15 @@ function HamukjaNewRecipe(){
             temp[Number(e.target.id) - 1] = e.target.files[0];
         }
         setStepImages(temp);
+
+        if(mods[Number(e.target.id)] === false){
+            temp = _.cloneDeep(mods);
+            temp[Number(e.target.id)] = true;
+            setMods(temp);
+        }
     }
 
-    function sendRecipe() {
+    function reviseRecipe(){
         if(document.querySelector('.title-input-text').value == ''){
             window.alert('제목을 작성해 주세요!');
             return;
@@ -138,40 +201,45 @@ function HamukjaNewRecipe(){
         let f = new File([], 'noImage');
         fd.append('title', document.querySelector('.title-input-text').value);
         fd.append('desc', document.querySelector('.desc-input-text').value);
-        fd.append('memberId', memberId);
-        fd.append('thumbnail', thumbnailIn);
-        
+        if(thumbnailIn === "exist"){
+            fd.append('thumbnail', null);
+        }
+        else{
+            fd.append('thumbnail', thumbnailIn);   
+        }
+
         for(let i=0; i<head; i++){
             if(document.querySelector('.step' + (i + 1) + ' .recipe-input-text').value === ''){
                 window.alert('레시피 내용을 작성해 주세요!');
                 return;
             }
             fd.append('stepArticles', document.querySelector('.step' + (i + 1) + ' .recipe-input-text').value);
-            if(stepImages[i] === null){
+            if(stepImages[i] === "exist" || stepImages[i] === null){
                 fd.append('stepImages', f);
             }
             else{
                 fd.append('stepImages', stepImages[i]);
             }
         }
+        fd.append('mods', mods);
 
         axios({
-            method: "post",
-            url: "/hamukja/recipe/new",
+            method: "put",
+            url: "/hamukja/recipe/" + props.recipeNumber,
             data: fd,
         }).then(response => {
-            window.alert('레시피가 등록되었습니다');
-            gotoHome();
+            window.alert('레시피를 수정하였습니다');
+            gotoRecipes();
         }).catch(() => {
-            window.alert('서버의 문제로 레시피를 등록하지 못했습니다..');
+            window.alert('서버의 문제로 레시피를 수정하지 못했습니다..');
         })
     }
 
     return(
-        <div className='HamukjaNewRecipe'>
+        <div className='HamukjaReviseRecipe'>
             <Container>
                 <h1 className='page-header'>
-                    레시피 작성
+                    레시피 수정
                 </h1>
                 <Row className='title-input'>
                     <div className='title-input-head'>
@@ -231,8 +299,8 @@ function HamukjaNewRecipe(){
                     </div>
                 </Row>
                 <div className='submit-btn'>
-                    <Button variant="primary" size="lg" onClick={sendRecipe}>
-                        작성 완료
+                    <Button variant="primary" size="lg" onClick={reviseRecipe}>
+                        수정 완료
                     </Button>
                 </div>
             </Container>
@@ -240,4 +308,4 @@ function HamukjaNewRecipe(){
     )
 }
 
-export default HamukjaNewRecipe;
+export default HamukjaReviseRecipe;

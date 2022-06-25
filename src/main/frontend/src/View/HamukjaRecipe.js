@@ -5,13 +5,16 @@ import { useState } from 'react';
 import {useNavigate} from 'react-router-dom';
 import React, { useEffect, useCallback } from 'react';
 import axios from 'axios';
+import {useSelector} from 'react-redux';
 
 
 
 function HamukjaRecipe(props) {
 
+    const memberId = useSelector((state) => state.member.id);
+
     let [recipeItems, setRecipeItems] = useState([
-        // {"id" : 1, "title" : "초간단 샐러드", "desc" : "상추와 당근, 토마토만 있다면 누구나 만들 수 있는 샐러드", "thumbnail" : "https://www.foo.com/bar123"}
+        {"id" : 1, "title" : "초간단 샐러드", "desc" : "상추와 당근, 토마토만 있다면 누구나 만들 수 있는 샐러드", "thumbnail" : "https://www.foo.com/bar123"}
     ]);
 
     useEffect(() => {
@@ -39,7 +42,17 @@ function HamukjaRecipe(props) {
     const gotoNewRecipe = useCallback(() => navigate('/newrecipe', {replace: true}), [navigate]);
     const gotoRecipePage = useCallback(() => navigate('/recipe-page', {replace: true}), [navigate]);
 
-    function openRecipePage(e){
+    function createNewRecipe(){
+        if(memberId != ''){
+            gotoNewRecipe();
+        }
+        else{
+            gotoNewRecipe();
+            window.alert('로그인 상태에서 레시피를 작성해 주세요!');
+        }
+    }
+
+    function openRecipePage(){
         gotoRecipePage();
     }
 
@@ -56,7 +69,7 @@ function HamukjaRecipe(props) {
                 </select>
                 </Col>
                 <Col className='recipe-creation-btn-area'>
-                    <button className='recipe-creation-btn' onClick={gotoNewRecipe}>새 레시피 작성</button>
+                    <button className='recipe-creation-btn' onClick={createNewRecipe}>새 레시피 작성</button>
                 </Col> 
             </Row>
             {

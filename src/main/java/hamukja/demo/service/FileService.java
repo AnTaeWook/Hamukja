@@ -11,6 +11,8 @@ public interface FileService {
 
     void deleteFile(String fileName);
 
+    byte[] downloadFile(String fileName);
+
     String getFileUrl(String fileName);
 
     String getFileFolder(FileFolder fileFolder);

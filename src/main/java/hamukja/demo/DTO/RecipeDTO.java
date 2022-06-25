@@ -11,6 +11,7 @@ public class RecipeDTO {
     private String desc;
     private String thumbnailPath;
 
+
     public static RecipeDTO create(Long id, String title, String desc, String thumbnailPath){
         RecipeDTO recipeDTO = new RecipeDTO();
         recipeDTO.setId(id);

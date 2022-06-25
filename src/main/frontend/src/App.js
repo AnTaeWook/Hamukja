@@ -9,6 +9,7 @@ import HamukjaNewRecipe from './View/HamukjaNewRecipe';
 import HamukjaNewPost from './View/HamukjaNewPost';
 import HamukjaRecipePage from './View/HamukjaRecipePage';
 import { useState } from 'react';
+import HamukjaReviseRecipe from './View/HamukjaReviseRecipe';
 
 
 
@@ -24,6 +25,7 @@ function App() {
           <Route path='*' element={<HamukjaHome/>}></Route>
           <Route path='/recipes' element={<HamukjaRecipe setRecipeNumber={setRecipeNumber}/>}></Route>
           <Route path='/newrecipe' element={<HamukjaNewRecipe/>}></Route>
+          <Route path='/revise-recipe' element={<HamukjaReviseRecipe recipeNumber={recipeNumber}/>}></Route>
           <Route path='/community' element={<HamukjaCommunity/>}></Route>
           <Route path='/newpost' element={<HamukjaNewPost/>}></Route>
           <Route path='/recipe-page' element={<HamukjaRecipePage recipeNumber={recipeNumber}/>}></Route>

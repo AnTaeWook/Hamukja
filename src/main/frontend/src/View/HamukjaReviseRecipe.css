@@ -1,62 +1,62 @@
-.HamukjaNewRecipe {
+.HamukjaReviseRecipe {
     margin-bottom: 5%;
 }
 
-.HamukjaNewRecipe .page-header {
+.HamukjaReviseRecipe .page-header {
     margin-top: 6%;
     margin-bottom: 2%;
 }
 
-.HamukjaNewRecipe .title-input {
+.HamukjaReviseRecipe .title-input {
     padding-top: 3%;
 }
 
-.HamukjaNewRecipe .title-input-head {
+.HamukjaReviseRecipe .title-input-head {
     font-size: 150%;
 }
 
-.HamukjaNewRecipe .title-input-text {
+.HamukjaReviseRecipe .title-input-text {
     margin-top: 1%;
     padding: 1%;
     font-size: 130%;
 }
 
-.HamukjaNewRecipe .desc-input {
+.HamukjaReviseRecipe .desc-input {
     padding-top: 3%;
 }
 
-.HamukjaNewRecipe .desc-input-head {
+.HamukjaReviseRecipe .desc-input-head {
     font-size: 150%;
 }
 
-.HamukjaNewRecipe .desc-input-text {
+.HamukjaReviseRecipe .desc-input-text {
     margin-top: 1%;
     padding: 1%;
     font-size: 130%;
 }
 
-.HamukjaNewRecipe .thumbnail-input {
+.HamukjaReviseRecipe .thumbnail-input {
     padding-top: 3%;
 }
 
-.HamukjaNewRecipe .thumbnail-input-head {
+.HamukjaReviseRecipe .thumbnail-input-head {
     font-size: 150%;
 }
 
-.HamukjaNewRecipe .thumbnail-input-label {
+.HamukjaReviseRecipe .thumbnail-input-label {
     width: 100%;
 }
 
-.HamukjaNewRecipe .stepImage-input-label {
+.HamukjaReviseRecipe .stepImage-input-label {
     width: 100%;
 }
 
-.HamukjaNewRecipe .recipe-input-head {
+.HamukjaReviseRecipe .recipe-input-head {
     font-size: 150%;
     margin-top: 3%;
 }
 
-.HamukjaNewRecipe .recipe-input-image {
+.HamukjaReviseRecipe .recipe-input-image {
     text-align: center;
     height: 207px;
     border: 1px solid black;
@@ -66,7 +66,7 @@
     background-repeat: no-repeat;
 }
 
-.HamukjaNewRecipe .thumbnail-input-image {
+.HamukjaReviseRecipe .thumbnail-input-image {
     text-align: center;
     height: 207px;
     border: 1px solid black;
@@ -76,40 +76,39 @@
     background-repeat: no-repeat;
 }
 
-.HamukjaNewRecipe .recipe-input-text {
+.HamukjaReviseRecipe .recipe-input-text {
     resize: none;
 }
 
-.HamukjaNewRecipe .recipe-input-delete-btn {
+.HamukjaReviseRecipe .recipe-input-delete-btn {
     padding-top: 45%;
     text-align: left;
 }
 
-.HamukjaNewRecipe .add-recipe-step {
+.HamukjaReviseRecipe .add-recipe-step {
     text-align: center;
     padding-right: 17%;
     margin-top: 3%;
 }
 
-.HamukjaNewRecipe .add-icon {
+.HamukjaReviseRecipe .add-icon {
     margin-left: 3%;
 }
 
-.HamukjaNewRecipe .minus-icon {
+.HamukjaReviseRecipe .minus-icon {
     margin-left: 8%;
 }
 
 
-.HamukjaNewRecipe .add-icon:hover {
+.HamukjaReviseRecipe .add-icon:hover {
     cursor : pointer;
 }
 
-.HamukjaNewRecipe .minus-icon:hover {
+.HamukjaReviseRecipe .minus-icon:hover {
     cursor : pointer;
 }
 
-.HamukjaNewRecipe .submit-btn {
+.HamukjaReviseRecipe .submit-btn {
     text-align: right;
     margin-right: 11%;
 }
-

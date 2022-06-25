@@ -8,7 +8,6 @@ import {useSelector, useDispatch} from 'react-redux';
 import {setMemberId} from '../_Redux/memberSlice';
 
 
-
 function NavbarMain(){
 
     const memberId = useSelector((state) => state.member.id);
@@ -18,7 +17,7 @@ function NavbarMain(){
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     useEffect(() => {
-        if(memberId == ''){
+        if(memberId === ''){
             setIsLoggedIn(false);
         }
         else{
@@ -53,6 +52,7 @@ function NavbarMain(){
     function signOutFunc(){
         dispatch(setMemberId(''));
         window.alert('로그아웃 되었습니다!');
+        gotoHome();
     }
 
     const navigate = useNavigate();

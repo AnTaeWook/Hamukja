@@ -32,16 +32,20 @@ public class FileProcessService {
         return amazonS3Service.getFileUrl(fileName);
     }
 
+    public byte[] downloadImage(String url){
+        return amazonS3Service.downloadFile(getFileName(url));
+    }
+
+    public void deleteImage(String url){
+        amazonS3Service.deleteFile(getFileName(url));
+    }
+
     private String createFileName(String originalFileName){
         return UUID.randomUUID().toString().concat(getFileExtension(originalFileName));
     }
 
     private String getFileExtension(String fileName){
         return fileName.substring(fileName.lastIndexOf("."));
-    }
-
-    private void deleteImage(String url){
-        amazonS3Service.deleteFile(getFileName(url));
     }
 
     private String getFileName(String url){
