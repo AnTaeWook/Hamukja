@@ -13,6 +13,19 @@ public class RecipeArticleRepository {
     private final EntityManager em;
 
     public void save(RecipeArticle recipeArticle){
-        em.persist(recipeArticle);
+        if(recipeArticle.getId() == null){
+            em.persist(recipeArticle);
+        }
+        else{
+            em.merge(recipeArticle);
+        }
+    }
+
+    public RecipeArticle findOne(Long id){
+        return em.find(RecipeArticle.class, id);
+    }
+
+    public void delete(RecipeArticle recipeArticle){
+        em.remove(recipeArticle);
     }
 }

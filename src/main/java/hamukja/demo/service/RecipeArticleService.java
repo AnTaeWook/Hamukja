@@ -21,4 +21,20 @@ public class RecipeArticleService {
         RecipeArticle recipeArticle = RecipeArticle.create(recipe, step, article);
         recipeArticleRepository.save(recipeArticle);
     }
+
+    @Transactional
+    public void delete(RecipeArticle recipeArticle){
+        recipeArticleRepository.delete(recipeArticle);
+    }
+
+    @Transactional
+    public void update(Long id, String article){
+        RecipeArticle recipeArticle = recipeArticleRepository.findOne(id);
+        recipeArticle.setArticle(article);
+        recipeArticleRepository.save(recipeArticle);
+    }
+
+    public RecipeArticle findOne(Long id){
+        return recipeArticleRepository.findOne(id);
+    }
 }

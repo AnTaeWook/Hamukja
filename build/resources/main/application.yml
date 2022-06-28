@@ -1,6 +1,7 @@
 Spring:
   datasource:
     url:  jdbc:h2:tcp://localhost/~/hamukja
+#    url:  jdbc:h2:mem:hamukja
     username: sa
     password:
     driver-class-name: org.h2.Driver

@@ -44,6 +44,10 @@ function HamukjaRecipePage(props){
         openCheckUpdateModal();
     };
 
+    function recommendation(){
+        window.alert('레시피를 추천하였습니다');
+    }
+
     useEffect(() => {
         axios({
             method: "get",
@@ -87,7 +91,15 @@ function HamukjaRecipePage(props){
                     return <RecipePageStep key={index} step={index} item={item} recipeImages={recipeImages}/>
                 })
             }
-
+            <Row>
+                <div className='recommned-btn-container'>
+                    <button className='recommend-btn-border' onClick={recommendation}>
+                        <span className="recommend-btn"> 추천
+                        </span>
+                    </button>
+                </div>
+            </Row>
+            
             <React.Fragment>
                 <CheckDeleteModal open={checkDeleteModalOpen} close={closeCheckDeleteModal} 
                     recipeId={props.recipeNumber} gotoRecipes={gotoRecipes}/>

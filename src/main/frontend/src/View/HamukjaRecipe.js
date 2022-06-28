@@ -1,5 +1,5 @@
 import './HamukjaRecipe.css';
-import {Container, Row, Col } from "react-bootstrap";
+import {Container, Row, Col, Button } from "react-bootstrap";
 import Recipe from '../Components/Recipe';
 import { useState } from 'react';
 import {useNavigate} from 'react-router-dom';
@@ -47,7 +47,6 @@ function HamukjaRecipe(props) {
             gotoNewRecipe();
         }
         else{
-            gotoNewRecipe();
             window.alert('로그인 상태에서 레시피를 작성해 주세요!');
         }
     }

@@ -11,7 +11,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -94,7 +93,7 @@ public class RecipeController {
     @GetMapping("/hamukja/recipe-for-revise/{id}")
     public RecipeReviseDTO recipeForRevise(@PathVariable Long id){
         Recipe recipe = recipeService.findOne(id);
-        String thumbnailPath = (recipe.getThumbnailName() == "noImage") ? "noImage" : recipe.getThumbnailPath();
+        String thumbnailPath = (recipe.getThumbnailName().equals("noImage")) ? "noImage" : recipe.getThumbnailPath();
         List<String> articles = new ArrayList<>();
         List<String> imagePaths = new ArrayList<>();
 
@@ -102,7 +101,7 @@ public class RecipeController {
             articles.add(r.getArticle());
         }
         for(RecipeImage r : recipe.getRecipeImages()){
-            if(r.getName() != "noImage"){
+            if(!r.getName().equals("noImage")){
                 imagePaths.add(r.getPath());
             }
             else {
@@ -110,9 +109,8 @@ public class RecipeController {
             }
         }
 
-        RecipeReviseDTO recipeReviseDTO = RecipeReviseDTO.create(recipe.getTitle(), recipe.getDesc(), thumbnailPath,
+        return RecipeReviseDTO.create(recipe.getTitle(), recipe.getDesc(), thumbnailPath,
                 articles, imagePaths);
-        return recipeReviseDTO;
     }
 
     @PutMapping("/hamukja/recipe/{id}")
@@ -127,7 +125,7 @@ public class RecipeController {
         Recipe recipe = recipeService.findOne(id);
         String filePath = noImage;
         String fileName = "noImage";
-        if(mods.get(0)){
+        if(mods.get(0) && !recipe.getThumbnailPath().equals(filePath)){
             fileProcessService.deleteImage(recipe.getThumbnailPath());
         }
         if(thumbnail != null){
@@ -135,15 +133,59 @@ public class RecipeController {
             filePath = fileProcessService.uploadImage(thumbnail, FileFolder.RECIPE_IMAGES);
         }
         recipeService.update(recipe, title, desc, fileName, filePath, mods.get(0));
+
+        for(int i = 0; i < Math.min(stepArticles.size(), recipe.getRecipeArticles().size()); i++){
+            filePath = noImage;
+            fileName = "noImage";
+            if(!stepArticles.get(i).equals(recipe.getRecipeArticles().get(i).getArticle())){
+                recipeArticleService.update(recipe.getRecipeArticles().get(i).getId(), stepArticles.get(i));
+            }
+            if(mods.get(i + 1) && !recipe.getRecipeImages().get(i).getPath().equals(filePath)){
+                fileProcessService.deleteImage(recipe.getRecipeImages().get(i).getPath());
+            }
+            if(stepImages.get(i).getSize() > 0){
+                fileName = stepImages.get(i).getOriginalFilename();
+                filePath = fileProcessService.uploadImage(stepImages.get(i), FileFolder.RECIPE_IMAGES);
+            }
+            if(mods.get(i + 1)){
+                recipeImageService.update(recipe.getRecipeImages().get(i).getId(), fileName, filePath);
+            }
+        }
+
+        if(stepArticles.size() > recipe.getRecipeArticles().size()){
+            for(int i = recipe.getRecipeArticles().size() + 1; i <= stepArticles.size(); i++){
+                filePath = noImage;
+                fileName = "noImage";
+                recipeArticleService.join(recipe.getId(), i, stepArticles.get(i - 1));
+                if(stepImages.get(i - 1).getSize() > 0){
+                    fileName = stepImages.get(i - 1).getOriginalFilename();
+                    filePath = fileProcessService.uploadImage(stepImages.get(i - 1), FileFolder.RECIPE_IMAGES);
+                }
+                recipeImageService.join(recipe.getId(), i, fileName, filePath);
+            }
+        }
+        else if(stepArticles.size() < recipe.getRecipeArticles().size()){
+            for(int i = recipe.getRecipeArticles().size() - 1; i >= stepArticles.size(); i--) {
+                recipeArticleService.delete(recipe.getRecipeArticles().get(i));
+                if (!recipe.getRecipeImages().get(i).getPath().equals(noImage)) {
+                    fileProcessService.deleteImage(recipe.getRecipeImages().get(i).getPath());
+                }
+                recipeImageService.delete(recipe.getRecipeImages().get(i));
+            }
+            System.out.println(recipe.getRecipeArticles().size());
+            System.out.println(recipe.getRecipeImages().size());
+        }
     }
 
     @DeleteMapping("/hamukja/recipe/{id}")
     public void delete(@PathVariable Long id){
         Recipe recipe = recipeService.findOne(id);
-        fileProcessService.deleteImage(recipe.getThumbnailPath());
+        if(!recipe.getThumbnailPath().equals(noImage)){
+            fileProcessService.deleteImage(recipe.getThumbnailPath());
+        }
         List<RecipeImage> recipeImages = recipe.getRecipeImages();
         for(RecipeImage recipeImage : recipeImages){
-            if(recipeImage.getName() != "noImage"){
+            if(!recipeImage.getPath().equals(noImage)){
                 fileProcessService.deleteImage(recipeImage.getPath());
             }
         }

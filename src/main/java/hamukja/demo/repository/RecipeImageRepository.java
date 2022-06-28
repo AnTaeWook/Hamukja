@@ -13,6 +13,19 @@ public class RecipeImageRepository {
     private final EntityManager em;
 
     public void save(RecipeImage recipeImage){
-        em.persist(recipeImage);
+        if(recipeImage.getId() == null){
+            em.persist(recipeImage);
+        }
+        else{
+            em.merge(recipeImage);
+        }
+    }
+
+    public RecipeImage findOne(Long id){
+        return em.find(RecipeImage.class, id);
+    }
+
+    public void delete(RecipeImage recipeImage){
+        em.remove(recipeImage);
     }
 }

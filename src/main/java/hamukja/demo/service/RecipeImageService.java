@@ -21,4 +21,21 @@ public class RecipeImageService {
         RecipeImage recipeImage = RecipeImage.create(recipe, step, name, path);
         recipeImageRepository.save(recipeImage);
     }
+
+    @Transactional
+    public void delete(RecipeImage recipeImage){
+        recipeImageRepository.delete(recipeImage);
+    }
+
+    @Transactional
+    public void update(Long id, String fileName, String filePath){
+        RecipeImage recipeImage = recipeImageRepository.findOne(id);
+        recipeImage.setName(fileName);
+        recipeImage.setPath(filePath);
+        recipeImageRepository.save(recipeImage);
+    }
+
+    public RecipeImage findOne(Long id){
+        return recipeImageRepository.findOne(id);
+    }
 }
