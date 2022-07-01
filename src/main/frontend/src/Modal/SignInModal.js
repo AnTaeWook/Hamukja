@@ -1,11 +1,16 @@
 import "./SignInModal.css";
 import {useDispatch} from 'react-redux';
 import {setMemberId} from '../_Redux/memberSlice';
+import { useNavigate } from 'react-router-dom';
+import React, { useCallback } from 'react';
 import axios from "axios";
 
 function SignInModal(props) {
 
     const dispatch = useDispatch();
+
+    const navigate = useNavigate();
+    const gotoHome = useCallback(() => navigate('/', {replace: true}), [navigate]);
 
     const { open, close } = props;
 
@@ -32,6 +37,7 @@ function SignInModal(props) {
         else{
           window.alert(response.data + ' 님 환영합니다!');
           dispatch(setMemberId(response.data));
+          gotoHome();
         }
       }).catch(() => {
         window.alert("Error");

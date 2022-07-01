@@ -2,7 +2,7 @@ package hamukja.demo.domain;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.Cascade;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "recipes")
+@Table(name = "recipe")
 @Getter @Setter
 public class Recipe {
 
@@ -28,6 +28,9 @@ public class Recipe {
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.REMOVE)
     private List<RecipeArticle> recipeArticles = new ArrayList<>();
 
+    @OneToMany(mappedBy = "recipe", cascade = CascadeType.REMOVE)
+    private List<Recommend> recommends = new ArrayList<>();
+
     private String thumbnailPath;
 
     private String thumbnailName;
@@ -40,17 +43,37 @@ public class Recipe {
 
     private LocalDateTime uploadTime;
 
+    private int recommendations;
+
+    // 생성 메서드
+    public static Recipe create(String title, String desc, Member member, String fileName, String filePath) {
+        Recipe recipe = new Recipe();
+        recipe.setMember(member);
+        recipe.setEmail(member.getEmail());
+        recipe.setUploadTime(LocalDateTime.now());
+        recipe.setTitle(title);
+        recipe.setDesc(desc);
+        recipe.setThumbnailName(fileName);
+        recipe.setThumbnailPath(filePath);
+        recipe.setRecommendations(0);
+        return recipe;
+    }
+
     // 연관관계 메서드
     public void setMember(Member member) {
         this.member = member;
         member.getRecipes().add(this);
     }
 
-    // 생성 메서드
-    public static Recipe createRecipe(Member member) {
-        Recipe recipe = new Recipe();
-        recipe.setMember(member);
-        recipe.setUploadTime(LocalDateTime.now());
-        return recipe;
+    // 추천수 증감
+    public void increaseRec(){
+        recommendations += 1;
     }
+
+    public void decreaseRec(){
+        if(recommendations > 0){
+            recommendations -= 1;
+        }
+    }
+
 }

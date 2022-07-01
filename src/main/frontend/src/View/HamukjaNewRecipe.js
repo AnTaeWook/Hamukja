@@ -163,7 +163,7 @@ function HamukjaNewRecipe(){
             window.alert('레시피가 등록되었습니다');
             gotoHome();
         }).catch(() => {
-            window.alert('서버의 문제로 레시피를 등록하지 못했습니다..');
+            window.alert('서버의 문제로 레시피를 등록하지 못했습니다');
         })
     }
 

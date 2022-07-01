@@ -25,8 +25,62 @@ public class RecipeController {
     private final RecipeArticleService recipeArticleService;
     private final RecipeImageService recipeImageService;
     private final FileProcessService fileProcessService;
+    private final RecommendService recommendService;
 
     private static String noImage = "https://antk7894-s3-bucket.s3.ap-northeast-2.amazonaws.com/Hamukja/noThumbnail.PNG";
+
+    @GetMapping("/hamukja/recipes")
+    public List<RecipeDTO> recipeDTOList(){
+        List<Recipe> recipes = recipeService.findByTime();
+        if(recipes.size() <= 0){
+            return null;
+        }
+        List<RecipeDTO> recipeDTOS = new ArrayList<>();
+        for(Recipe r : recipes){
+            recipeDTOS.add(RecipeDTO.create(r.getId(), r.getTitle(), r.getDesc(), r.getThumbnailPath()));
+        }
+        return recipeDTOS;
+    }
+
+    @GetMapping("/hamukja/recipe/{id}")
+    public RecipePageDTO recipePage(@PathVariable Long id){
+        Recipe recipe = recipeService.findOne(id);
+        List<RecipeArticle> recipeArticles = recipe.getRecipeArticles();
+        List<RecipeImage> recipeImages = recipe.getRecipeImages();
+        List<String> articles = new ArrayList<>();
+        List<String> imagePaths = new ArrayList<>();
+
+        for(RecipeArticle r : recipeArticles){
+            articles.add(r.getArticle());
+        }
+        for(RecipeImage r : recipeImages){
+            imagePaths.add(r.getPath());
+        }
+        return RecipePageDTO.create(recipe.getMember().getId(), recipe.getTitle(), articles, imagePaths, recipe.getRecommendations());
+    }
+
+    @GetMapping("/hamukja/recipe-for-revise/{id}")
+    public RecipeReviseDTO recipeForRevise(@PathVariable Long id){
+        Recipe recipe = recipeService.findOne(id);
+        String thumbnailPath = (recipe.getThumbnailName().equals("noImage")) ? "noImage" : recipe.getThumbnailPath();
+        List<String> articles = new ArrayList<>();
+        List<String> imagePaths = new ArrayList<>();
+
+        for(RecipeArticle r : recipe.getRecipeArticles()){
+            articles.add(r.getArticle());
+        }
+        for(RecipeImage r : recipe.getRecipeImages()){
+            if(!r.getName().equals("noImage")){
+                imagePaths.add(r.getPath());
+            }
+            else {
+                imagePaths.add("noImage");
+            }
+        }
+
+        return RecipeReviseDTO.create(recipe.getTitle(), recipe.getDesc(), thumbnailPath,
+                articles, imagePaths);
+    }
 
     @PostMapping("/hamukja/recipe/new")
     public int create(@RequestParam("title")String title,
@@ -59,58 +113,29 @@ public class RecipeController {
         return 0;
     }
 
-    @GetMapping("/hamukja/recipes")
-    public List<RecipeDTO> recipeDTOList(){
-        List<Recipe> recipes = recipeService.findByTime();
-        if(recipes.size() <= 0){
-            return null;
-        }
-        List<RecipeDTO> recipeDTOS = new ArrayList<>();
-        for(Recipe r : recipes){
-            recipeDTOS.add(RecipeDTO.create(r.getId(), r.getTitle(), r.getDesc(), r.getThumbnailPath()));
-        }
-        return recipeDTOS;
-    }
-
-    @GetMapping("/hamukja/recipe/{id}")
-    public RecipePageDTO recipePage(@PathVariable Long id){
-        Recipe recipe = recipeService.findOne(id);
-        List<RecipeArticle> recipeArticles = recipe.getRecipeArticles();
-        List<RecipeImage> recipeImages = recipe.getRecipeImages();
-        List<String> articles = new ArrayList<>();
-        List<String> imagePaths = new ArrayList<>();
-
-        for(RecipeArticle r : recipeArticles){
-            articles.add(r.getArticle());
-        }
-        for(RecipeImage r : recipeImages){
-            imagePaths.add(r.getPath());
-        }
-
-        return RecipePageDTO.create(recipe.getMember().getId(), recipe.getTitle(), articles, imagePaths);
-    }
-
-    @GetMapping("/hamukja/recipe-for-revise/{id}")
-    public RecipeReviseDTO recipeForRevise(@PathVariable Long id){
-        Recipe recipe = recipeService.findOne(id);
-        String thumbnailPath = (recipe.getThumbnailName().equals("noImage")) ? "noImage" : recipe.getThumbnailPath();
-        List<String> articles = new ArrayList<>();
-        List<String> imagePaths = new ArrayList<>();
-
-        for(RecipeArticle r : recipe.getRecipeArticles()){
-            articles.add(r.getArticle());
-        }
-        for(RecipeImage r : recipe.getRecipeImages()){
-            if(!r.getName().equals("noImage")){
-                imagePaths.add(r.getPath());
-            }
-            else {
-                imagePaths.add("noImage");
+    @PostMapping("/hamukja/recipe/recommended")
+    public boolean isRecommended(@RequestParam("memberId")String memberId, @RequestParam("recipeId")Long recipeId){
+        List<Recommend> recommends = memberService.findOne(memberId).getRecommends();
+        for(Recommend recommend : recommends){
+            if(recommend.getRecipe().getId().equals(recipeId)){
+                return true;
             }
         }
+        return false;
+    }
 
-        return RecipeReviseDTO.create(recipe.getTitle(), recipe.getDesc(), thumbnailPath,
-                articles, imagePaths);
+    @PostMapping("/hamukja/recipe/recommend")
+    public int recommend(@RequestParam("memberId")String memberId,
+                         @RequestParam("recipeId")Long recipeId,
+                         @RequestParam("isRecommend")boolean isRecommend) throws Exception {
+        recipeService.recommend(recipeId, isRecommend);
+        if(isRecommend){
+            recommendService.join(memberService.findOne(memberId), recipeService.findOne(recipeId));
+        }
+        else{
+            recommendService.delete(memberService.findOne(memberId), recipeService.findOne(recipeId));
+        }
+        return recipeService.findOne(recipeId).getRecommendations();
     }
 
     @PutMapping("/hamukja/recipe/{id}")
@@ -172,8 +197,6 @@ public class RecipeController {
                 }
                 recipeImageService.delete(recipe.getRecipeImages().get(i));
             }
-            System.out.println(recipe.getRecipeArticles().size());
-            System.out.println(recipe.getRecipeImages().size());
         }
     }
 

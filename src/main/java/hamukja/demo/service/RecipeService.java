@@ -17,13 +17,7 @@ public class RecipeService {
 
     @Transactional
     public Long join(String title, String desc, Member member, String fileName, String filePath){
-        Recipe recipe;
-        recipe = Recipe.createRecipe(member);
-        recipe.setEmail(member.getEmail());
-        recipe.setTitle(title);
-        recipe.setDesc(desc);
-        recipe.setThumbnailName(fileName);
-        recipe.setThumbnailPath(filePath);
+        Recipe recipe = Recipe.create(title, desc, member, fileName, filePath);
         return recipeRepository.save(recipe);
     }
 
@@ -45,6 +39,18 @@ public class RecipeService {
     @Transactional
     public void delete(Recipe recipe){
         recipeRepository.delete(recipe);
+    }
+
+    @Transactional
+    public void recommend(Long id, boolean isRecommend){
+        Recipe recipe = recipeRepository.findOne(id);
+        if(isRecommend){
+            recipe.increaseRec();
+        }
+        else{
+            recipe.decreaseRec();
+        }
+        recipeRepository.save(recipe);
     }
 
     public Recipe findOne(Long id) { return  recipeRepository.findOne(id); }
