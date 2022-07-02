@@ -1,6 +1,7 @@
 package hamukja.demo.repository;
 
 import hamukja.demo.domain.Recipe;
+import hamukja.demo.domain.Recommend;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -33,6 +34,11 @@ public class RecipeRepository {
 
     public List<Recipe> findByTime() {
         return em.createQuery("select r from Recipe r order by r.uploadTime desc",
+                Recipe.class).getResultList();
+    }
+
+    public List<Recipe> findByRecommend() {
+        return em.createQuery("select r from Recipe r order by r.recommendations desc, r.uploadTime desc",
                 Recipe.class).getResultList();
     }
 }

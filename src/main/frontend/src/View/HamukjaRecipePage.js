@@ -3,15 +3,13 @@ import RecipePageStep from '../Components/RecipePageStep';
 import CheckDeleteModal from '../Modal/CheckDeleteModal';
 import CheckUpdateModal from '../Modal/CheckUpdateModal';
 import axios from 'axios';
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, useLayoutEffect } from 'react';
 import { Container, Col, Row, Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import {useSelector} from 'react-redux';
 
 
-
 function HamukjaRecipePage(props){
-
     const memberId = useSelector((state) => state.member.id);
     const navigate = useNavigate();
     const gotoRecipes = useCallback(() => navigate('/recipes', {replace: true}), [navigate]);
@@ -80,6 +78,9 @@ function HamukjaRecipePage(props){
     }
 
     useEffect(() => {
+        setTimeout(() => {
+            document.querySelector('.recommned-btn-container').style.display = 'inline';
+        }, 20);
         axios({
             method: "get",
             url: "/hamukja/recipe/" + props.recipeNumber,
@@ -119,7 +120,7 @@ function HamukjaRecipePage(props){
             document.querySelector('.recommend-btn').style.background = '#e8e8e8';
         }
     }, [isRecommended]);
-    
+
     return(
         <Container className='HamukjaRecipePage'>
             <h1 className='page-header'>

@@ -59,4 +59,8 @@ public class RecipeService {
         return recipeRepository.findByTime();
     }
 
+    public List<Recipe> findByRecommend() {
+        return recipeRepository.findByRecommend();
+    }
+
 }

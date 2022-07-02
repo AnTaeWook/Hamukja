@@ -29,9 +29,23 @@ public class RecipeController {
 
     private static String noImage = "https://antk7894-s3-bucket.s3.ap-northeast-2.amazonaws.com/Hamukja/noThumbnail.PNG";
 
-    @GetMapping("/hamukja/recipes")
-    public List<RecipeDTO> recipeDTOList(){
+    @GetMapping("/hamukja/recipes/order-by-time")
+    public List<RecipeDTO> recipeDTOListByTime(){
         List<Recipe> recipes = recipeService.findByTime();
+        if(recipes.size() <= 0){
+            return null;
+        }
+        List<RecipeDTO> recipeDTOS = new ArrayList<>();
+        for(Recipe r : recipes){
+            recipeDTOS.add(RecipeDTO.create(r.getId(), r.getTitle(), r.getDesc(), r.getThumbnailPath()));
+        }
+        return recipeDTOS;
+    }
+
+    @CrossOrigin(origins = "*")
+    @GetMapping("/hamukja/recipes/order-by-recommend")
+    public List<RecipeDTO> recipeDTOListByRecommend(){
+        List<Recipe> recipes = recipeService.findByRecommend();
         if(recipes.size() <= 0){
             return null;
         }
