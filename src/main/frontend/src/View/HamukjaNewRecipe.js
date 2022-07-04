@@ -17,7 +17,7 @@ function HamukjaNewRecipe(){
     const memberId = useSelector((state) => state.member.id);
 
     const navigate = useNavigate();
-    const gotoHome = useCallback(() => navigate('/', {replace: true}), [navigate]);
+    const gotoRecipes = useCallback(() => navigate('/recipes', {replace: true}), [navigate]);
 
     const [thumbnailIn, setThumbnailIn] = useState(null);
     const [stepImages, setStepImages] = useState([null, null, null, null, null]);
@@ -161,7 +161,7 @@ function HamukjaNewRecipe(){
             data: fd,
         }).then(response => {
             window.alert('레시피가 등록되었습니다');
-            gotoHome();
+            gotoRecipes();
         }).catch(() => {
             window.alert('서버의 문제로 레시피를 등록하지 못했습니다');
         })

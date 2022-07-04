@@ -80,19 +80,48 @@ function HamukjaRecipe(props) {
         })
     }
 
+    function searchRecipe(){
+        let keyWord = document.querySelector('.recipe-search-input').value;
+        if(!keyWord){
+            return;
+        }
+        axios({
+            method: "get",
+            url: "/hamukja/recipe-search/" + keyWord,
+        }).then(res => {
+            let recipeMetas = [];
+            for(let i=0; i<res.data.length; i++){
+                let recipeMeta = {
+                    "id": res.data[i].id,
+                    "title": res.data[i].title,
+                    "desc": res.data[i].desc,
+                    "thumbnail": res.data[i].thumbnailPath,
+                }
+                recipeMetas.push(recipeMeta);
+            }
+            setRecipeItems(recipeMetas);
+        }).catch(() => {
+            window.alert('서버 문제로 레시피들을 가져오지 못했습니다');
+        })
+    }
+
     return (
         <Container className='HamukjaRecipe'>
             <h1 className='page-header'>
                 해먹자 레시피
             </h1>
             <Row>
-                <Col>
+                <Col xs={2}>
                 <select name="sorting-rool" className='recipes-sort' onChange={getRecipes}>
                     <option value="order-by-time">최신 순</option>
                     <option value="order-by-recommend">추천 순</option>
                 </select>
                 </Col>
-                <Col className='recipe-creation-btn-area'>
+                <Col>
+                    <input type="text" placeholder="레시피 검색" className='recipe-search-input'></input>
+                    <button className='recipe-search-btn' onClick={searchRecipe}>🔍</button>
+                </Col>
+                <Col xs={3}>
                     <button className='recipe-creation-btn' onClick={createNewRecipe}>새 레시피 작성</button>
                 </Col> 
             </Row>

@@ -80,7 +80,7 @@ function HamukjaRecipePage(props){
     useEffect(() => {
         setTimeout(() => {
             document.querySelector('.recommned-btn-container').style.display = 'inline';
-        }, 20);
+        }, 100);
         axios({
             method: "get",
             url: "/hamukja/recipe/" + props.recipeNumber,

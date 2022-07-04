@@ -42,10 +42,22 @@ public class RecipeController {
         return recipeDTOS;
     }
 
-    @CrossOrigin(origins = "*")
     @GetMapping("/hamukja/recipes/order-by-recommend")
     public List<RecipeDTO> recipeDTOListByRecommend(){
         List<Recipe> recipes = recipeService.findByRecommend();
+        if(recipes.size() <= 0){
+            return null;
+        }
+        List<RecipeDTO> recipeDTOS = new ArrayList<>();
+        for(Recipe r : recipes){
+            recipeDTOS.add(RecipeDTO.create(r.getId(), r.getTitle(), r.getDesc(), r.getThumbnailPath()));
+        }
+        return recipeDTOS;
+    }
+
+    @GetMapping("/hamukja/recipe-search/{word}")
+    public List<RecipeDTO> recipeDTOListByWord(@PathVariable String word){
+        List<Recipe> recipes = recipeService.findByWord(word);
         if(recipes.size() <= 0){
             return null;
         }

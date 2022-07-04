@@ -63,4 +63,8 @@ public class RecipeService {
         return recipeRepository.findByRecommend();
     }
 
+    public List<Recipe> findByWord(String word){
+        return recipeRepository.findByWord(word);
+    }
+
 }

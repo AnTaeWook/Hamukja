@@ -41,4 +41,10 @@ public class RecipeRepository {
         return em.createQuery("select r from Recipe r order by r.recommendations desc, r.uploadTime desc",
                 Recipe.class).getResultList();
     }
+
+    public List<Recipe> findByWord(String word) {
+        String likeWord = "%" + word + "%";
+        return em.createQuery("select r from Recipe r where r.title like :word", Recipe.class)
+                .setParameter("word", likeWord).getResultList();
+    }
 }

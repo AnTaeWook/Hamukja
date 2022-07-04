@@ -28,8 +28,13 @@
     font-size: 150%;
 }
 
-.HamukjaRecipe .recipe-creation-btn-area {
-    padding-left: 55%;
+.HamukjaRecipe .recipe-search-input {
+    margin-right: 1%;
+    margin-top: 1.2%;
+}
+
+.Hamukja .test {
+    text-align: center;
 }
 
 .HamukjaRecipe .recipe-creation-btn {
