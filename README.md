@@ -54,7 +54,7 @@
 * CLIENT : React(Axios, Redux, React bootstrap, react-router-dom)
 * DBMS : H2
 
-## 다음 번 develop에서 main으로 머지될 때 추가될 내용
+## 다음번 develop에서 main으로 머지될 때 추가될 내용
 * JWT를 이용한 회원관리
 * 커뮤니티 서비스 완성
 * elastic search를 이용한 레시피 조회 및 저장
