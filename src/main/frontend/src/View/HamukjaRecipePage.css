@@ -79,7 +79,7 @@
 }
 
 .recommned-btn-container {
-    display: none;
+    visibility: hidden;
     text-align: center;
 }
 

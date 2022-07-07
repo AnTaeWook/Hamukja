@@ -28,13 +28,13 @@
     font-size: 150%;
 }
 
-.HamukjaRecipe .recipe-search-input {
-    margin-right: 1%;
-    margin-top: 1.2%;
+.HamukjaRecipe .recipes-sort {
+    margin-top: 6%;
 }
 
-.Hamukja .test {
-    text-align: center;
+.HamukjaRecipe .recipe-search-input {
+    margin-right: 1%;
+    margin-top: 2%;
 }
 
 .HamukjaRecipe .recipe-creation-btn {
