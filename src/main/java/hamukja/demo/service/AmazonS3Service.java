@@ -19,7 +19,8 @@ public class AmazonS3Service implements FileService{
     private final AmazonS3Component amazonS3Component;
 
     public void uploadFile(InputStream inputStream, ObjectMetadata objectMetadata, String fileName){
-        amazonS3.putObject(new PutObjectRequest(amazonS3Component.getBucket(), fileName, inputStream, objectMetadata).withCannedAcl(CannedAccessControlList.PublicReadWrite));
+        amazonS3.putObject(new PutObjectRequest(amazonS3Component.getBucket(), fileName, inputStream, objectMetadata)
+                .withCannedAcl(CannedAccessControlList.PublicReadWrite));
     }
 
     public byte[] downloadFile(String fileName) {

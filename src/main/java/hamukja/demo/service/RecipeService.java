@@ -23,10 +23,10 @@ public class RecipeService {
 
     @Transactional
     public void update(Recipe recipe, String title, String desc, String fileName, String filePath, boolean isUpdated){
-        if(recipe.getTitle() != title){
+        if(!recipe.getTitle().equals(title)){
             recipe.setTitle(title);
         }
-        if(recipe.getDesc() != desc){
+        if(!recipe.getDesc().equals(desc)){
             recipe.setDesc(desc);
         }
         if(isUpdated){

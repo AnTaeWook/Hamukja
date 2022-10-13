@@ -1,0 +1,12 @@
+.Comment {
+    margin-bottom: 1%;
+    margin-top: 2%;
+}
+
+.Comment .comment-profile {
+    text-align: center;
+}
+
+.Comment .comment-main-text {
+    margin-top: 0.8%;
+}

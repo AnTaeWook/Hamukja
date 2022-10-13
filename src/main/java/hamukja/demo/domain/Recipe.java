@@ -2,7 +2,6 @@ package hamukja.demo.domain;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -22,13 +21,13 @@ public class Recipe {
     @JoinColumn(name = "memberId")
     private Member member;
 
-    @OneToMany(mappedBy = "recipe", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "recipe", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<RecipeImage> recipeImages = new ArrayList<>();
 
-    @OneToMany(mappedBy = "recipe", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "recipe", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<RecipeArticle> recipeArticles = new ArrayList<>();
 
-    @OneToMany(mappedBy = "recipe", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "recipe", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<Recommend> recommends = new ArrayList<>();
 
     private String thumbnailPath;
@@ -56,6 +55,13 @@ public class Recipe {
         recipe.setThumbnailName(fileName);
         recipe.setThumbnailPath(filePath);
         recipe.setRecommendations(0);
+        return recipe;
+    }
+
+    // 테스트를 위한 메서드
+    public static Recipe createRecipe(Member member) {
+        Recipe recipe = new Recipe();
+        recipe.setMember(member);
         return recipe;
     }
 

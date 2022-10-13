@@ -1,7 +1,6 @@
 package hamukja.demo.repository;
 
 import hamukja.demo.domain.Recipe;
-import hamukja.demo.domain.Recommend;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 

@@ -25,12 +25,11 @@ public class MemberController {
     }
 
     @PostMapping("/hamukja/sign-in")
-    public String signIn(@RequestParam("id")String id,
-                         @RequestParam("pw")String password){
-        if(memberService.findOne(id) == null){
+    public String signIn(@RequestParam("id") String id,
+                         @RequestParam("pw") String password) {
+        if (memberService.findOne(id) == null) {
             return "<Error>notExistId";
-        }
-        else if(!memberService.findOne(id).getPassword().equals(password)){
+        } else if (!memberService.findOne(id).getPassword().equals(password)) {
             return "<Error>wrongPassword";
         }
         return id;

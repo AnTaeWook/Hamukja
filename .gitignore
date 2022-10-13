@@ -1,4 +1,4 @@
 src/main/resources/application-credentials.yml
 src/main/resources/application-aws.yml
-build/resources/main/application-credentials.yml
-build/resources/main/application-aws.yml
+build/
+out/

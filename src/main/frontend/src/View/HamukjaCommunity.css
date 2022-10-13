@@ -55,6 +55,10 @@
     margin-left: 1%;
 }
 
+.HamukjaCommunity .post-title:hover{
+    cursor: pointer;
+}
+
 .HamukjaCommunity .post-thema{
     border-right: 1px solid black;
     font-weight: bold;
@@ -62,4 +66,8 @@
 
 .HamukjaCommunity .post-thema, .HamukjaCommunity .post-title, .HamukjaCommunity .post-area {
     padding: 1%;
+}
+
+.HamukjaCommunity .post-search-btn {
+    margin-left: 1%;
 }
