@@ -9,6 +9,7 @@ import hamukja.demo.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -30,23 +31,15 @@ public class PostService {
         return postRepository.findAllByOrderByUploadTimeDesc();
     }
 
-    public List<Post> findAllByClass(String postClass) {
-        return postRepository.findByPostClass(postClass);
-    }
-
-    public List<Post> findAllByRegion(String region) {
-        return postRepository.findByRegionLike(region);
-    }
-
     public List<Post> findPostWithCondition(PostSearchCondition condition) {
         return postRepository.findPostWithCondition(condition);
     }
 
     @Transactional
-    public Long save(PostReceiveDto postReceiveDto) {
+    public Long save(PostReceiveDto postReceiveDto, MultipartFile postImage) {
 
-        String fileName = postReceiveDto.getPostImage() != null ? postReceiveDto.getPostImage().getOriginalFilename() : "";
-        String filePath = postReceiveDto.getPostImage() != null ? fileProcessService.uploadImage(postReceiveDto.getPostImage(), FileFolder.RECIPE_IMAGES) : "";
+        String fileName = postImage != null ? postImage.getOriginalFilename() : "";
+        String filePath = postImage != null ? fileProcessService.uploadImage(postImage, FileFolder.RECIPE_IMAGES) : "";
 
         Post post = new Post(postReceiveDto.getTitle(), postReceiveDto.getRegion(), postReceiveDto.getPostClass(),
                 postReceiveDto.getArticle(), LocalDateTime.now(), filePath, fileName);

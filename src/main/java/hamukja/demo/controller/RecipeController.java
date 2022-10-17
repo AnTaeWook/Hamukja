@@ -5,9 +5,7 @@ import hamukja.demo.DTO.RecipePageDTO;
 import hamukja.demo.DTO.RecipeReviseDTO;
 import hamukja.demo.domain.*;
 import hamukja.demo.service.*;
-
 import lombok.RequiredArgsConstructor;
-
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 

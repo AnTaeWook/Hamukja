@@ -3,8 +3,6 @@ package hamukja.demo.controller;
 import hamukja.demo.DTO.*;
 import hamukja.demo.domain.Comment;
 import hamukja.demo.domain.Post;
-import hamukja.demo.domain.Recipe;
-import hamukja.demo.domain.RecipeImage;
 import hamukja.demo.repository.CommentRepository;
 import hamukja.demo.service.FileProcessService;
 import hamukja.demo.service.MemberService;
@@ -12,7 +10,9 @@ import hamukja.demo.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.Nullable;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,12 +37,12 @@ public class PostController {
 
     @GetMapping("/hamukja/comment/{id}")
     public List<CommentDto> getComments(@PathVariable("id") Long id) {
-        return commentRepository.findAllByPost(postService.find(id)).stream().map(CommentDto::new).collect(Collectors.toList());
+        return commentRepository.findAllByPost(id).stream().map(CommentDto::new).collect(Collectors.toList());
     }
 
     @PostMapping("/hamukja/post")
-    public void uploadPost(PostReceiveDto postReceiveDto) {
-        postService.save(postReceiveDto);
+    public void uploadPost(PostReceiveDto postReceiveDto, @RequestParam(value = "postImage", required = false) MultipartFile postImage) {
+        postService.save(postReceiveDto, postImage);
     }
 
     @PostMapping("/hamukja/post/comment")
