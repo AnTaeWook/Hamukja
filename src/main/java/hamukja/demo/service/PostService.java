@@ -43,7 +43,7 @@ public class PostService {
 
         Post post = new Post(postReceiveDto.getTitle(), postReceiveDto.getRegion(), postReceiveDto.getPostClass(),
                 postReceiveDto.getArticle(), LocalDateTime.now(), filePath, fileName);
-        post.setMember(memberRepository.find(postReceiveDto.getMemberId()));
+        post.setMember(memberRepository.findById(postReceiveDto.getMemberId()).get());
         return postRepository.save(post).getId();
     }
 

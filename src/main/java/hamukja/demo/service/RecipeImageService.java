@@ -17,7 +17,7 @@ public class RecipeImageService {
     private final RecipeRepository recipeRepository;
 
     public void join(Long recipeId, int step, String name, String path){
-        Recipe recipe = recipeRepository.findOne(recipeId);
+        Recipe recipe = recipeRepository.findById(recipeId).get();
         RecipeImage recipeImage = RecipeImage.create(recipe, step, name, path);
         recipeImageRepository.save(recipeImage);
     }
@@ -29,13 +29,13 @@ public class RecipeImageService {
 
     @Transactional
     public void update(Long id, String fileName, String filePath){
-        RecipeImage recipeImage = recipeImageRepository.findOne(id);
+        RecipeImage recipeImage = recipeImageRepository.findById(id).get();
         recipeImage.setName(fileName);
         recipeImage.setPath(filePath);
         recipeImageRepository.save(recipeImage);
     }
 
     public RecipeImage findOne(Long id){
-        return recipeImageRepository.findOne(id);
+        return recipeImageRepository.findById(id).get();
     }
 }

@@ -18,7 +18,7 @@ public class RecipeService {
     @Transactional
     public Long join(String title, String desc, Member member, String fileName, String filePath){
         Recipe recipe = Recipe.create(title, desc, member, fileName, filePath);
-        return recipeRepository.save(recipe);
+        return recipeRepository.save(recipe).getId();
     }
 
     @Transactional
@@ -33,7 +33,6 @@ public class RecipeService {
             recipe.setThumbnailName(fileName);
             recipe.setThumbnailPath(filePath);
         }
-        recipeRepository.save(recipe);
     }
 
     @Transactional
@@ -43,7 +42,7 @@ public class RecipeService {
 
     @Transactional
     public void recommend(Long id, boolean isRecommend){
-        Recipe recipe = recipeRepository.findOne(id);
+        Recipe recipe = recipeRepository.findById(id).get();
         if(isRecommend){
             recipe.increaseRec();
         }
@@ -53,18 +52,18 @@ public class RecipeService {
         recipeRepository.save(recipe);
     }
 
-    public Recipe findOne(Long id) { return  recipeRepository.findOne(id); }
+    public Recipe findOne(Long id) { return  recipeRepository.findById(id).get(); }
 
     public List<Recipe> findByTime(){
-        return recipeRepository.findByTime();
+        return recipeRepository.findAllByOrderByUploadTimeDesc();
     }
 
     public List<Recipe> findByRecommend() {
-        return recipeRepository.findByRecommend();
+        return recipeRepository.findAllByOrderByRecommendationsDesc();
     }
 
     public List<Recipe> findByWord(String word){
-        return recipeRepository.findByWord(word);
+        return recipeRepository.findByTitleContains(word);
     }
 
 }

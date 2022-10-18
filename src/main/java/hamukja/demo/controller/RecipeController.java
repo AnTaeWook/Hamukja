@@ -25,7 +25,7 @@ public class RecipeController {
     private final FileProcessService fileProcessService;
     private final RecommendService recommendService;
 
-    private static String noImage = "https://antk7894-s3-bucket.s3.ap-northeast-2.amazonaws.com/Hamukja/noThumbnail.PNG";
+    private static final String noImage = "https://antk7894-s3-bucket.s3.ap-northeast-2.amazonaws.com/Hamukja/noThumbnail.PNG";
 
     @GetMapping("/hamukja/recipes/order-by-time")
     public List<RecipeDTO> recipeDTOListByTime(){
