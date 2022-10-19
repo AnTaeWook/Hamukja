@@ -1,5 +1,6 @@
 package hamukja.demo.service;
 
+import hamukja.demo.DTO.RecipeSearchCondition;
 import hamukja.demo.domain.Member;
 import hamukja.demo.domain.Recipe;
 import hamukja.demo.repository.RecipeRepository;
@@ -18,22 +19,21 @@ public class RecipeService {
     @Transactional
     public Long join(String title, String desc, Member member, String fileName, String filePath){
         Recipe recipe = Recipe.create(title, desc, member, fileName, filePath);
-        return recipeRepository.save(recipe);
+        return recipeRepository.save(recipe).getId();
     }
 
     @Transactional
     public void update(Recipe recipe, String title, String desc, String fileName, String filePath, boolean isUpdated){
-        if(recipe.getTitle() != title){
+        if(!recipe.getTitle().equals(title)){
             recipe.setTitle(title);
         }
-        if(recipe.getDesc() != desc){
+        if(!recipe.getDesc().equals(desc)){
             recipe.setDesc(desc);
         }
         if(isUpdated){
             recipe.setThumbnailName(fileName);
             recipe.setThumbnailPath(filePath);
         }
-        recipeRepository.save(recipe);
     }
 
     @Transactional
@@ -43,28 +43,23 @@ public class RecipeService {
 
     @Transactional
     public void recommend(Long id, boolean isRecommend){
-        Recipe recipe = recipeRepository.findOne(id);
+        Recipe recipe = recipeRepository.findById(id).get();
         if(isRecommend){
             recipe.increaseRec();
         }
         else{
             recipe.decreaseRec();
         }
-        recipeRepository.save(recipe);
     }
 
-    public Recipe findOne(Long id) { return  recipeRepository.findOne(id); }
+    public Recipe findOne(Long id) { return  recipeRepository.findById(id).get(); }
 
-    public List<Recipe> findByTime(){
-        return recipeRepository.findByTime();
+    public List<Recipe> findBySearchCondition(RecipeSearchCondition condition) {
+        return recipeRepository.findBySearchCondition(condition);
     }
 
-    public List<Recipe> findByRecommend() {
-        return recipeRepository.findByRecommend();
-    }
-
-    public List<Recipe> findByWord(String word){
-        return recipeRepository.findByWord(word);
+    public Long count(RecipeSearchCondition condition) {
+        return recipeRepository.countBySearchCondition(condition);
     }
 
 }

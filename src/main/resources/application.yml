@@ -8,10 +8,11 @@ Spring:
 
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     properties:
       hibernate:
-#        show_sql: true
+        default_batch_fetch_size: 100
+        show_sql: true
         format_sql: true
 
   logging.level:

@@ -55,10 +55,22 @@
 }
 
 .HamukjaNewPost .post-input-text {
+    padding: 1%;
     resize: none;
 }
 
 .HamukjaNewPost .submit-btn {
-    text-align: right;
-    margin-right: 21%;
+    text-align: left;
+    margin-top: 2%;
+}
+
+.HamukjaNewPost .upload-btn {
+    font-size: 150%;
+    padding: 2%;
+}
+
+.HamukjaNewPost .post-image-input {
+    margin-top: 2%;
+    margin-bottom: 2%;
+    border: 1px solid black;
 }

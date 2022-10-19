@@ -30,9 +30,9 @@ public class MemberServiceTest {
         member.setPassword("dksxodnr9");
         member.setEmail("antk7894@naver.com");
 
-        String saveId = memberService.join(member);
+        Member saved = memberService.join(member);
 
-        Assertions.assertThat(saveId).isEqualTo(member.getId());
+        Assertions.assertThat(saved.getId()).isEqualTo(member.getId());
     }
 
     @Test(expected = IllegalStateException.class)

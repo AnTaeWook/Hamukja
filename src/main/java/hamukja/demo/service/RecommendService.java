@@ -25,6 +25,6 @@ public class RecommendService {
 
     @Transactional
     public void delete(Member member, Recipe recipe){
-        recommendRepository.delete(member, recipe);
+        recommendRepository.delete(recommendRepository.findByMemberAndRecipe(member, recipe));
     }
 }

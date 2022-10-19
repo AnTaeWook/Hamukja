@@ -1,0 +1,64 @@
+.HamukjaCommunityPage {
+    margin-bottom: 5%;
+}
+
+.HamukjaCommunityPage .post-header {
+    margin-top: 6%;
+    margin-bottom: 2%;
+}
+
+.HamukjaCommunityPage .delete-btn {
+    margin-left: 5%;
+}
+
+.HamukjaCommunityPage .post-metadata {
+    padding-top: 1%;
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+}
+
+.HamukjaCommunityPage .post-article {
+    margin-top: 5%;
+    padding-bottom: 5%;
+    font-size: 130%;
+    white-space: pre-wrap;
+}
+
+.HamukjaCommunityPage .post-image {
+    margin-top: 3%;
+    width: 80%;
+    height: 800px;
+    margin-bottom: 2%;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.HamukjaCommunityPage .post-image-row {
+    border-bottom: 2px solid black;
+}
+
+.HamukjaCommunityPage .comment-input-text {
+    padding: 1%;
+    resize: none;
+}
+
+.HamukjaCommunityPage .comment-input-btn {
+    margin-left: 5%;
+    width: 50%;
+    height: 89%;
+    font-size: 130%;
+}
+
+.HamukjaCommunityPage .comment-input-area {
+    margin-top: 3%;
+    margin-bottom: 1%;
+}
+
+.HamukjaCommunityPage .back-btn {
+    font-size: 110%;
+}
+
+.HamukjaCommunityPage .delete-btn-area {
+    text-align: right;
+    padding: 0.5%;
+}

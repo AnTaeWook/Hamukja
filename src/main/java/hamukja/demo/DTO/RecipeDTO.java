@@ -1,5 +1,6 @@
 package hamukja.demo.DTO;
 
+import hamukja.demo.domain.Recipe;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,13 +12,10 @@ public class RecipeDTO {
     private String desc;
     private String thumbnailPath;
 
-
-    public static RecipeDTO create(Long id, String title, String desc, String thumbnailPath){
-        RecipeDTO recipeDTO = new RecipeDTO();
-        recipeDTO.setId(id);
-        recipeDTO.setTitle(title);
-        recipeDTO.setDesc(desc);
-        recipeDTO.setThumbnailPath(thumbnailPath);
-        return recipeDTO;
+    public RecipeDTO(Recipe recipe) {
+        this.id = recipe.getId();
+        this.title = recipe.getTitle();
+        this.desc = recipe.getDesc();
+        this.thumbnailPath = recipe.getThumbnailPath();
     }
 }

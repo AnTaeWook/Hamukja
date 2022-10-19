@@ -20,19 +20,17 @@ public class MemberRepositoryTest {
 
     @Test
     @Transactional
-    @Rollback(false)
-    public void testMember(){
+    public void testMember() {
         Member member = new Member();
         member.setId("antk7894");
         member.setPassword("dksxodnr9");
         member.setEmail("antk7894@naver.com");
-        String savedId = memberRepository.save(member);
+        Member saved = memberRepository.save(member);
 
-        Member findMember = memberRepository.find(savedId);
+        Member findMember = memberRepository.findById(saved.getId()).get();
 
         Assertions.assertThat(findMember.getId()).isEqualTo(member.getId());
         Assertions.assertThat(findMember.getPassword()).isEqualTo(member.getPassword());
-        Assertions.assertThat(findMember).isEqualTo(member);
 
 //        동일 ID로 회원 가입 불가
 //        Member member2 = new Member();

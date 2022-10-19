@@ -2,7 +2,7 @@ package hamukja.demo.domain;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.lang.Nullable;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -12,9 +12,10 @@ import java.util.List;
 @Entity
 @Table(name = "recipe")
 @Getter @Setter
+@ToString
 public class Recipe {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue
     @Column(name = "recipeId")
     private Long id;
 
@@ -22,13 +23,13 @@ public class Recipe {
     @JoinColumn(name = "memberId")
     private Member member;
 
-    @OneToMany(mappedBy = "recipe", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "recipe", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<RecipeImage> recipeImages = new ArrayList<>();
 
-    @OneToMany(mappedBy = "recipe", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "recipe", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<RecipeArticle> recipeArticles = new ArrayList<>();
 
-    @OneToMany(mappedBy = "recipe", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "recipe", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<Recommend> recommends = new ArrayList<>();
 
     private String thumbnailPath;
@@ -56,6 +57,13 @@ public class Recipe {
         recipe.setThumbnailName(fileName);
         recipe.setThumbnailPath(filePath);
         recipe.setRecommendations(0);
+        return recipe;
+    }
+
+    // 테스트를 위한 메서드
+    public static Recipe createRecipe(Member member) {
+        Recipe recipe = new Recipe();
+        recipe.setMember(member);
         return recipe;
     }
 

@@ -3,7 +3,10 @@ package hamukja.demo.controller;
 import hamukja.demo.domain.Member;
 import hamukja.demo.service.MemberService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping
@@ -25,12 +28,11 @@ public class MemberController {
     }
 
     @PostMapping("/hamukja/sign-in")
-    public String signIn(@RequestParam("id")String id,
-                         @RequestParam("pw")String password){
-        if(memberService.findOne(id) == null){
+    public String signIn(@RequestParam("id") String id,
+                         @RequestParam("pw") String password) {
+        if (memberService.findOne(id) == null) {
             return "<Error>notExistId";
-        }
-        else if(!memberService.findOne(id).getPassword().equals(password)){
+        } else if (!memberService.findOne(id).getPassword().equals(password)) {
             return "<Error>wrongPassword";
         }
         return id;
