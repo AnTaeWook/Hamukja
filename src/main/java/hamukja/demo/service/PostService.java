@@ -52,4 +52,7 @@ public class PostService {
         postRepository.deleteById(id);
     }
 
+    public Long count(PostSearchCondition condition) {
+        return postRepository.countBySearchCondition(condition);
+    }
 }

@@ -1,5 +1,6 @@
 package hamukja.demo.service;
 
+import hamukja.demo.DTO.RecipeSearchCondition;
 import hamukja.demo.domain.Member;
 import hamukja.demo.domain.Recipe;
 import hamukja.demo.repository.RecipeRepository;
@@ -49,21 +50,16 @@ public class RecipeService {
         else{
             recipe.decreaseRec();
         }
-        recipeRepository.save(recipe);
     }
 
     public Recipe findOne(Long id) { return  recipeRepository.findById(id).get(); }
 
-    public List<Recipe> findByTime(){
-        return recipeRepository.findAllByOrderByUploadTimeDesc();
+    public List<Recipe> findBySearchCondition(RecipeSearchCondition condition) {
+        return recipeRepository.findBySearchCondition(condition);
     }
 
-    public List<Recipe> findByRecommend() {
-        return recipeRepository.findAllByOrderByRecommendationsDesc();
-    }
-
-    public List<Recipe> findByWord(String word){
-        return recipeRepository.findByTitleContains(word);
+    public Long count(RecipeSearchCondition condition) {
+        return recipeRepository.countBySearchCondition(condition);
     }
 
 }

@@ -33,6 +33,6 @@ public class RecipeServiceTest {
         memberRepository.save(member);
 
         Long saveId = recipeService.join("삼겹살 볶음밥", "삼겹살과 상추로만 만드는 간단 비빔밥", member, "", "");
-        System.out.println(recipeRepository.findOne(saveId).getTitle());
+        System.out.println(recipeRepository.findById(saveId).get().getTitle());
     }
 }

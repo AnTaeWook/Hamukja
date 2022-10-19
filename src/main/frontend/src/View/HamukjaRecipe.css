@@ -85,3 +85,12 @@
     margin-right: 3%;
 }
 
+.HamukjaRecipe .more-btn-area {
+    margin-top: 5%;
+    margin-bottom: 3%;
+    text-align: center;
+}
+
+.HamukjaRecipe .more-btn {
+    font-size: 150%;
+}

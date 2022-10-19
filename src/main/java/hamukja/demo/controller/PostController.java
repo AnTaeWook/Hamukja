@@ -26,8 +26,13 @@ public class PostController {
     private final FileProcessService fileProcessService;
 
     @GetMapping("/hamukja/post")
-    public List<PostDto> getPosts(@RequestParam("postClass") String postClass, @RequestParam("keyword") String keyword) {
-        return postService.findPostWithCondition(new PostSearchCondition(postClass, keyword)).stream().map(PostDto::new).collect(Collectors.toList());
+    public PostDtoList getPosts(@RequestParam("postClass") String postClass, @RequestParam("keyword") String keyword,
+                                  @RequestParam("page") Long page) {
+        PostSearchCondition postSearchCondition = new PostSearchCondition(postClass, keyword, page);
+        List<Post> posts = postService.findPostWithCondition(postSearchCondition);
+
+        Long size = postService.count(postSearchCondition);
+        return new PostDtoList(posts.stream().map(PostDto::new).collect(Collectors.toList()), (page + 1) * 10 < size);
     }
 
     @GetMapping("/hamukja/post/{id}")

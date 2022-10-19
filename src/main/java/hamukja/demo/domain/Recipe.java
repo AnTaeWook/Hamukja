@@ -2,6 +2,7 @@ package hamukja.demo.domain;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -11,9 +12,10 @@ import java.util.List;
 @Entity
 @Table(name = "recipe")
 @Getter @Setter
+@ToString
 public class Recipe {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue
     @Column(name = "recipeId")
     private Long id;
 

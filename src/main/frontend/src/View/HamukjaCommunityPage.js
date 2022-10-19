@@ -118,7 +118,8 @@ function HamukjaCommunityPage(props) {
             }
             setContents(postMeta);
             getComments();
-        }).catch(() => {
+        }).catch((e) => {
+            console.log(e);
             window.alert('서버 문제로 게시글을 가져오지 못했습니다');
         })
     }, []);

@@ -15,7 +15,6 @@ import static org.springframework.util.StringUtils.*;
 @RequiredArgsConstructor
 public class PostRepositoryImpl implements PostCustomRepository {
 
-    private final EntityManager em;
     private final JPAQueryFactory queryFactory;
 
     @Override
@@ -27,7 +26,21 @@ public class PostRepositoryImpl implements PostCustomRepository {
                         titleOrRegionContains(condition.getKeyword())
                 )
                 .orderBy(post.uploadTime.desc())
+                .offset(condition.getPage() * 10)
+                .limit(10)
                 .fetch();
+    }
+
+    @Override
+    public Long countBySearchCondition(PostSearchCondition condition) {
+        return queryFactory
+                .select(post.count())
+                .from(post)
+                .where(
+                        postClassEq(condition.getPostClass()),
+                        titleOrRegionContains(condition.getKeyword())
+                )
+                .fetchOne();
     }
 
     private BooleanExpression postClassEq(String postClass) {

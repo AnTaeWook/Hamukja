@@ -1,8 +1,6 @@
 package hamukja.demo.controller;
 
-import hamukja.demo.DTO.RecipeDTO;
-import hamukja.demo.DTO.RecipePageDTO;
-import hamukja.demo.DTO.RecipeReviseDTO;
+import hamukja.demo.DTO.*;
 import hamukja.demo.domain.*;
 import hamukja.demo.service.*;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping
@@ -27,43 +26,14 @@ public class RecipeController {
 
     private static final String noImage = "https://antk7894-s3-bucket.s3.ap-northeast-2.amazonaws.com/Hamukja/noThumbnail.PNG";
 
-    @GetMapping("/hamukja/recipes/order-by-time")
-    public List<RecipeDTO> recipeDTOListByTime(){
-        List<Recipe> recipes = recipeService.findByTime();
-        if(recipes.size() <= 0){
-            return null;
-        }
-        List<RecipeDTO> recipeDTOS = new ArrayList<>();
-        for(Recipe r : recipes){
-            recipeDTOS.add(RecipeDTO.create(r.getId(), r.getTitle(), r.getDesc(), r.getThumbnailPath()));
-        }
-        return recipeDTOS;
-    }
+    @GetMapping("/hamukja/recipe")
+    public RecipeDtoList searchRecipe(@RequestParam("sortingRule") String sortingRule, @RequestParam("keyword") String keyword,
+                                      @RequestParam("slice") Long slice) {
+        RecipeSearchCondition recipeSearchCondition = new RecipeSearchCondition(sortingRule, keyword, slice);
+        List<Recipe> recipes = recipeService.findBySearchCondition(recipeSearchCondition);
 
-    @GetMapping("/hamukja/recipes/order-by-recommend")
-    public List<RecipeDTO> recipeDTOListByRecommend(){
-        List<Recipe> recipes = recipeService.findByRecommend();
-        if(recipes.size() <= 0){
-            return null;
-        }
-        List<RecipeDTO> recipeDTOS = new ArrayList<>();
-        for(Recipe r : recipes){
-            recipeDTOS.add(RecipeDTO.create(r.getId(), r.getTitle(), r.getDesc(), r.getThumbnailPath()));
-        }
-        return recipeDTOS;
-    }
-
-    @GetMapping("/hamukja/recipe-search/{word}")
-    public List<RecipeDTO> recipeDTOListByWord(@PathVariable String word){
-        List<Recipe> recipes = recipeService.findByWord(word);
-        if(recipes.size() <= 0){
-            return null;
-        }
-        List<RecipeDTO> recipeDTOS = new ArrayList<>();
-        for(Recipe r : recipes){
-            recipeDTOS.add(RecipeDTO.create(r.getId(), r.getTitle(), r.getDesc(), r.getThumbnailPath()));
-        }
-        return recipeDTOS;
+        Long size = recipeService.count(recipeSearchCondition);
+        return new RecipeDtoList(recipes.stream().map(RecipeDTO::new).collect(Collectors.toList()), (slice + 1) * 5 < size);
     }
 
     @GetMapping("/hamukja/recipe/{id}")

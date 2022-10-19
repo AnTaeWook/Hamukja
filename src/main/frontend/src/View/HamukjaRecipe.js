@@ -1,5 +1,5 @@
 import './HamukjaRecipe.css';
-import {Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Button } from "react-bootstrap";
 import Recipe from '../Components/Recipe';
 import { useState } from 'react';
 import {useNavigate} from 'react-router-dom';
@@ -15,31 +15,17 @@ function HamukjaRecipe(props) {
     const memberId = useSelector((state) => state.member.id);
     const sortingRool = useSelector((state) => state.sorting.sortingRool);
 
+    const [hasMore, setHasMore] = useState(false);
+    const [currentSlice, setCurrentSlice] = useState(0);
+    const sliceSize = 5;
+
     let [recipeItems, setRecipeItems] = useState([
         // {"id" : 1, "title" : "초간단 샐러드", "desc" : "상추와 당근, 토마토만 있다면 누구나 만들 수 있는 샐러드", "thumbnail" : "https://www.foo.com/bar123"}
     ]);
 
     useEffect(() => {
-        document.querySelector('.recipes-sort').value = sortingRool;
-        axios({
-            method: "get",
-            url: "/hamukja/recipes/" + sortingRool,
-        }).then(res => {
-            let recipeMetas = [];
-            for(let i=0; i<res.data.length; i++){
-                let recipeMeta = {
-                    "id": res.data[i].id,
-                    "title": res.data[i].title,
-                    "desc": res.data[i].desc,
-                    "thumbnail": res.data[i].thumbnailPath,
-                }
-                recipeMetas.push(recipeMeta);
-            }
-            setRecipeItems(recipeMetas);
-        }).catch(() => {
-            window.alert('서버 문제로 레시피들을 가져오지 못했습니다');
-        })
-    }, []);
+        searchRecipes(0);
+    }, [sortingRool]);
 
     const navigate = useNavigate();
     const gotoNewRecipe = useCallback(() => navigate('/newrecipe', {replace: true}), [navigate]);
@@ -60,47 +46,53 @@ function HamukjaRecipe(props) {
 
     function getRecipes(e){
         dispatch(setSortingRool(e.target.value));
-        axios({
-            method: "get",
-            url: "/hamukja/recipes/" + e.target.value,
-        }).then(res => {
-            let recipeMetas = [];
-            for(let i=0; i<res.data.length; i++){
-                let recipeMeta = {
-                    "id": res.data[i].id,
-                    "title": res.data[i].title,
-                    "desc": res.data[i].desc,
-                    "thumbnail": res.data[i].thumbnailPath,
-                }
-                recipeMetas.push(recipeMeta);
-            }
-            setRecipeItems(recipeMetas);
-        }).catch(() => {
-            window.alert('서버 문제로 레시피들을 가져오지 못했습니다');
-        })
+        setRecipeItems([]);
+        setCurrentSlice(0);
     }
 
     function searchRecipe(){
+        setRecipeItems([]);
+        setCurrentSlice(0);
+        searchRecipes(0);
+    }
+
+    function getMoreRecipes(){
+        setCurrentSlice(currentSlice + 1);
+        searchRecipes(currentSlice + 1);
+    }
+
+    function searchRecipes(slice) {
         let keyWord = document.querySelector('.recipe-search-input').value;
-        if(!keyWord){
-            return;
+        console.log(sortingRool);
+        const params = {
+            "sortingRule": sortingRool,
+            "keyword": keyWord,
+            "slice": slice
         }
         axios({
             method: "get",
-            url: "/hamukja/recipe-search/" + keyWord,
+            url: "/hamukja/recipe",
+            params: params,
         }).then(res => {
             let recipeMetas = [];
-            for(let i=0; i<res.data.length; i++){
+            if (slice > 0) {
+                for (let i = 0; i < recipeItems.length; i++) {
+                    recipeMetas.push(recipeItems[i]);
+                }
+            }
+            for(let i=0; i<res.data.recipeDTOList.length; i++){
                 let recipeMeta = {
-                    "id": res.data[i].id,
-                    "title": res.data[i].title,
-                    "desc": res.data[i].desc,
-                    "thumbnail": res.data[i].thumbnailPath,
+                    "id": res.data.recipeDTOList[i].id,
+                    "title": res.data.recipeDTOList[i].title,
+                    "desc": res.data.recipeDTOList[i].desc,
+                    "thumbnail": res.data.recipeDTOList[i].thumbnailPath,
                 }
                 recipeMetas.push(recipeMeta);
             }
             setRecipeItems(recipeMetas);
-        }).catch(() => {
+            setHasMore(res.data.hasMore);
+        }).catch((e) => {
+            console.log(e);
             window.alert('서버 문제로 레시피들을 가져오지 못했습니다');
         })
     }
@@ -129,6 +121,15 @@ function HamukjaRecipe(props) {
                 recipeItems.map((item, index) => {
                     return <Recipe key={index} item={item} openRecipePage={openRecipePage} setRecipeNumber={props.setRecipeNumber}/>
                 })
+            }
+            {
+                hasMore?
+                <Row>
+                    <Col className='more-btn-area'>
+                        <Button variant="primary" className='more-btn' onClick={getMoreRecipes}>더보기</Button>
+                    </Col>
+                </Row>:
+                null
             }
         </Container>
     )
