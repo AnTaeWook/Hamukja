@@ -27,8 +27,8 @@
 
 ---
 ## RESTful API 컨트롤러(정렬방식 별 레시피 목록 조회)
-```java
-@GetMapping("/hamukja/recipes/order-by-time")
+``` java
+    @GetMapping("/hamukja/recipes/order-by-time")
     public List<RecipeDTO> recipeDTOListByTime(){
         List<Recipe> recipes = recipeService.findByTime();
         if(recipes.size() <= 0){
@@ -60,14 +60,4 @@
 * SERVER : Spring Boot(Spring Boot Web, Junit, lombok)
 * CLIENT : React(Axios, Redux, React bootstrap, react-router-dom)
 * DBMS : H2
-
-<br/>
-
-## 다음 번 develop에서 main으로 머지될 때 추가될 내용
-* JWT를 이용한 회원관리
-<<<<<<< HEAD
-* 커뮤니티 서비스 완성
-=======
-* 커뮤니티 서비스 완성(완료)
->>>>>>> develop
-* elastic search를 이용한 레시피 조회 및 저장
+* JPQL BUILDER : Query DSL
