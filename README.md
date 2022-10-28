@@ -26,32 +26,16 @@
 <br/>
 
 ---
-## RESTful API 컨트롤러(정렬방식 별 레시피 목록 조회)
+## RESTful API 컨트롤러(정렬방식 및 키워드 기준 레시피 목록 조회)
 ``` java
-    @GetMapping("/hamukja/recipes/order-by-time")
-    public List<RecipeDTO> recipeDTOListByTime(){
-        List<Recipe> recipes = recipeService.findByTime();
-        if(recipes.size() <= 0){
-            return null;
-        }
-        List<RecipeDTO> recipeDTOS = new ArrayList<>();
-        for(Recipe r : recipes){
-            recipeDTOS.add(RecipeDTO.create(r.getId(), r.getTitle(), r.getDesc(), r.getThumbnailPath()));
-        }
-        return recipeDTOS;
-    }
+    @GetMapping("/hamukja/recipe")
+    public RecipeDtoList searchRecipe(@RequestParam("sortingRule") String sortingRule, @RequestParam("keyword") String keyword,
+                                      @RequestParam("slice") Long slice) {
+        RecipeSearchCondition recipeSearchCondition = new RecipeSearchCondition(sortingRule, keyword, slice);
+        List<Recipe> recipes = recipeService.findBySearchCondition(recipeSearchCondition);
 
-    @GetMapping("/hamukja/recipes/order-by-recommend")
-    public List<RecipeDTO> recipeDTOListByRecommend(){
-        List<Recipe> recipes = recipeService.findByRecommend();
-        if(recipes.size() <= 0){
-            return null;
-        }
-        List<RecipeDTO> recipeDTOS = new ArrayList<>();
-        for(Recipe r : recipes){
-            recipeDTOS.add(RecipeDTO.create(r.getId(), r.getTitle(), r.getDesc(), r.getThumbnailPath()));
-        }
-        return recipeDTOS;
+        Long size = recipeService.count(recipeSearchCondition);
+        return new RecipeDtoList(recipes.stream().map(RecipeDTO::new).collect(Collectors.toList()), (slice + 1) * 5 < size);
     }
 ```
 <br/>
