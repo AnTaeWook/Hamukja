@@ -6,23 +6,19 @@
 <br/><br/>
 
 ## 메인
-![main](https://user-images.githubusercontent.com/55526071/177815708-4e97dc1f-6572-47ce-a339-122139b7e7d6.png)
+![main](https://user-images.githubusercontent.com/55526071/199666396-51c04926-1300-4de4-9613-f1f37822ec7f.PNG)
 <br/>
 
 ## 레시피 목록
-![recipes](https://user-images.githubusercontent.com/55526071/177815812-0f73f43a-02cd-4c23-bf93-2ef60815daa2.png)
-<br/>
-
-## 레시피 열람
-![recipe](https://user-images.githubusercontent.com/55526071/177815883-b4c6444c-7ab6-427d-957d-c573da89daaf.png)
+![recipeList](https://user-images.githubusercontent.com/55526071/199666428-dfedf6cb-e5f8-41fc-ad51-e9e3aba3fc8d.PNG)
 <br/>
 
 ## 레시피 작성
-![create](https://user-images.githubusercontent.com/55526071/177815959-93104364-eb61-4ef7-9a52-6daaf44b0374.png)
+![make](https://user-images.githubusercontent.com/55526071/199666449-6d674343-2621-49e8-8ac5-b2a4c55bc507.PNG)
 <br/>
 
 ## 커뮤니티
-![community](https://user-images.githubusercontent.com/55526071/177816012-80de03f9-cae8-4f50-9323-31d315b6442b.png)
+![comm](https://user-images.githubusercontent.com/55526071/199666454-e8e375b9-2188-4196-9c24-20358da4f6f6.PNG)
 <br/>
 
 ---
